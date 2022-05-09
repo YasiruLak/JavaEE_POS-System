@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap POS System</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="assests/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assests/styles/style.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cba6695e4b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!--Nav Bar-->
+<section>
+    <nav class="navbar navbar-expand-lg navbar-light navColor">
+        <div class="container-fluid">
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav  me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fs-5">
+                        <a aria-current="page" class="nav-link" href="#" id="linkHome">Home</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#" id="linkCustomer">Customer</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#" id="linkItem">Items</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#" id="linkOrder">Orders</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#" id="linkPurchaseOrder">Purchase Order</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<!--Home Slide-->
+<section class="homeSlide" id="dashboardContent">
+    <article>
+        <div class="container-fluid mt-5">
+            <div class="row ">
+                <div class="col">
+                </div>
+                <div class="col-10">
+                    <div class="card-body bg-light border border-dark mt-3">
+                        <div class="container-fluid mt-4">
+                            <div id="home-tiles">
+                                <div class="row ">
+                                    <div class="col mb-2">
+                                        <div class="card ">
+                                            <div class="card-header bg-secondary text-white">Customers</div>
+                                            <div class="card-body">
+                                                <div class="dash-tile-text text-right text-black-50" id="customerCount"><h2>0</h2></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col mb-2">
+                                        <div class="card">
+                                            <div class="card-header bg-secondary text-white ">Items</div>
+                                            <div class="card-body">
+                                                <div class="dash-tile-text text-right text-black-50" id="itemCount"><h2>0</h2></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col mb-2">
+                                        <div class="card">
+                                            <div class="card-header bg-secondary text-white">My Orders</div>
+                                            <div class="card-body">
+                                                <div class="dash-tile-text text-right text-black-50" id="orderCount"><h2>0</h2></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col mt-3"></div>
+                <div class="col-10 mt-3">
+                    <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleControls">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img alt="..." class="d-block w-100" src="assests/img/supermarket.jpg">
+                            </div>
+                            <div class="carousel-item">
+                                <img alt="..." class="d-block w-100"
+                                     src="assests/img/fruits.jpg">
+                            </div>
+                            <div class="carousel-item">
+                                <img alt="..." class="d-block w-100" src="assests/img/vegetables.jpg">
+                            </div>
+                            <div class="carousel-item">
+                                <img alt="..." class="d-block w-100" src="assests/img/girlSupermarket.jpg">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" data-bs-slide="prev"
+                                data-bs-target="#carouselExampleControls"
+                                type="button">
+                            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" data-bs-slide="next"
+                                data-bs-target="#carouselExampleControls"
+                                type="button">
+                            <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col mt-3"></div>
+            </div>
+        </div>
+
+    </article>
+</section>
+
+<!--Customer Manage Content Start-->
+<section class="container-fluid mt-5" id="customerContent">
+    <section class="container-fluid mt-5">
+        <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label" for="txtCusId">Customer ID</label>
+                <input class="form-control" id="txtCusId" placeholder="C00-001" type="text">
+                <p><small class="text-danger pl-1" id="lblCusId"></small></p>
+            </div>
+            <div class="mb-3 col">
+                <label class="form-label" for="txtCusName">Customer Name</label>
+                <input class="form-control" id="txtCusName" placeholder="Yasiru Dahanayaka" type="text">
+                <p><small class="text-danger pl-1" id="lblCusName"></small></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label" for="txtCusAddress">Customer Address</label>
+                <input class="form-control" id="txtCusAddress" placeholder="Mapalagama Galle" type="text">
+                <p><small class="text-danger pl-1" id="lblCusAddress"></small></p>
+            </div>
+            <div class="mb-3 col">
+                <label class="form-label" for="txtCusContact">Customer Tp</label>
+                <input class="form-control" id="txtCusContact" placeholder="076 8383493" type="text">
+                <p><small class="text-danger pl-1" id="lblCusContact"></small></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-fluid mt-3 button">
+        <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
+        <button class="btn btn-success" id="btnUpdateCustomer" type="button">Update</button>
+        <button class="btn btn-primary" id="btnCustomerSave" type="button">Add Customer</button>
+
+    </section>
+
+    <section class="container-fluid mt-3">
+        <form class="d-flex">
+            <input aria-label="Search" class="form-control me-2" id="txtSearchCustomer" placeholder="Search"
+                   type="search">
+            <button class="btn btn-outline-success" id="btnSearchCustomer" type="submit">Search</button>
+        </form>
+    </section>
+
+
+    <section class="row mt-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead class="bg-info text-white" id="tableHead">
+                <tr class="head">
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>Customer Address</th>
+                    <th>Customer TP.</th>
+                </tr>
+                </thead>
+                <tbody id="customerTable">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+<!--Item Manage Content Start-->
+<section class="container-fluid mt-5" id="itemContent">
+    <section class="container-fluid mt-3">
+        <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label" for="txtItemCode">Item Code</label>
+                <input class="form-control" id="txtItemCode" placeholder="I00-000" type="text">
+                <p><small class="text-danger pl-1" id="lblItemId"></small></p>
+            </div>
+            <div class="mb-3 col">
+                <label class="form-label" for="txtItemName">Item Name</label>
+                <input class="form-control" id="txtItemName" placeholder="Maggi Noodles" type="text">
+                <p><small class="text-danger pl-1" id="lblItemName"></small></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label" for="txtItemQuantity">Quantity</label>
+                <input class="form-control" id="txtItemQuantity" placeholder="40" type="text">
+                <p><small class="text-danger pl-1" id="lblItemQty"></small></p>
+            </div>
+            <div class="mb-3 col">
+                <label class="form-label" for="txtItemUnitPrice">Unit Price</label>
+                <input class="form-control" id="txtItemUnitPrice" placeholder="65.00" type="text">
+                <p><small class="text-danger pl-1" id="lblItemUnitPrice"></small></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-fluid mt-3 button">
+        <button class="btn btn-danger" id="btnItemDelete" type="button">Delete</button>
+        <button class="btn btn-success" id="btnItemUpdate" type="button">Update</button>
+        <button class="btn btn-primary" id="btnItemSave" type="button">Add Item</button>
+
+    </section>
+
+    <section class="container-fluid mt-3">
+        <form class="d-flex">
+            <input aria-label="Search" class="form-control me-2" id="txtSearchItem" placeholder="Search" type="search">
+            <button class="btn btn-outline-success" id="btnItemSearch" type="submit">Search</button>
+        </form>
+    </section>
+
+
+    <section class="row mt-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead class="bg-info text-white">
+                <tr class="head">
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                </tr>
+                </thead>
+                <tbody id="itemToTable">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+<!--Order Manage Content Start-->
+<section class="container-fluid mt-3" id="orderContent">
+    <article class="mt-5"></article>
+    <article>
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col" style="margin-top: -5vh">
+                    <div class="jumbotron mt-5 container-fluid ">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card border border-primary">
+                                    <div class="card-header bg-primary  fw-bolder text-white">Order Details</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-3">
+                                                <input class="form-control" disabled id="orderDate" type="text">
+                                            </div>
+                                            <div class="col mt-3">
+                                                <input aria-label="Order Id" class="form-control" disabled
+                                                       id="txtOrderId"
+                                                       placeholder="Order Id" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <div class="card border border-primary mt-0">
+                                        <div class="card-header bg-primary  fw-bolder text-white">Customer Select</div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="col mt-3">
+                                                        <select aria-label="Default select example" class="form-select"
+                                                                id="orderCusCmb">
+                                                            <option>Customer Id</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col mt-3">
+                                                    <input aria-label="Customer Name" class="form-control"
+                                                           id="txtOrderCusName"
+                                                           placeholder="Customer Name" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col" style="margin-top: -5vh">
+                                <div class=" mt-5">
+                                    <div class="card border border-primary">
+                                        <div class="card-header bg-primary  fw-bolder text-white">Item Select</div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <select aria-label="Default select example" class="form-select"
+                                                            id="orderItemCmb">
+                                                        <option>Item Code</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <input aria-label="Available Quantity" class="form-control"
+                                                           id="txtOrderItemAvailableQty"
+                                                           placeholder="Available Quantity" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mt-3">
+                                                    <input aria-label="Item Name" class="form-control"
+                                                           id="txtOrderItemName"
+                                                           placeholder="Item Name" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mt-3">
+                                                    <input aria-label="Unit Price" class="form-control"
+                                                           id="txtOrderItemPrice"
+                                                           placeholder="Unit Price"
+                                                           type="text">
+                                                </div>
+                                                <div class="col mt-3">
+                                                    <input aria-label="Number Of Pieces" class="form-control"
+                                                           id="txtOrderItemNumQty"
+                                                           placeholder="Number Of Pieces"
+                                                           type="text">
+                                                </div>
+                                                <div class="col mt-3">
+                                                    <input aria-label="Discount" class="form-control"
+                                                           id="txtOrderDiscount"
+                                                           placeholder="Discount"
+                                                           type="text">
+                                                </div>
+                                                <section class="container-fluid mt-3 button">
+                                                    <button class="btn btn-danger" id="btnRemove" type="button">Remove
+                                                    </button>
+                                                    <button class="btn btn-primary" id="btnAddToCart" type="button">Add
+                                                        To Cart
+                                                    </button>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" mt-5">
+                                    <div class="card border border-primary">
+                                        <div class="card-header bg-primary  fw-bolder text-white">Invoice Details</div>
+                                        <div class="card-body">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col mt-3">
+                                                        <input aria-label="Sub Total" class="form-control"
+                                                               id="txtSubTotal"
+                                                               placeholder="Sub Total" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </article>
+    <section class="row mt-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead class="bg-info text-white">
+                <tr class="head">
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="addToCartTable">
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="container-fluid mt-3 placeOrder">
+        <button class="btn btn-success" id="btnPlaceOrder" type="button">Place Order</button>
+    </section>
+</section>
+
+<!--Purchase Order Manage Content Start-->
+<section class="container-fluid mt-5" id="purchaseOrderContent">
+    <section class="row mt-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead class="bg-info text-white">
+                <tr class="head">
+                    <th>Order ID</th>
+                    <th>Customer Id</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="orderTable">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="row">
+        <div class="col">
+            <table class="table table-hover">
+                <thead class="bg-info text-white">
+                <tr class="head">
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Customer Id</th>
+                    <th>Customer Name</th>
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody id="orderDetailTable">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+
+<script src="assests/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assests/jQuery/jquery-3.6.0.min.js"></script>
+<script src="assests/script/javaScript.js"></script>
+
+</body>
+</html>

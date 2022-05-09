@@ -1,0 +1,65 @@
+*{
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.navColor{
+    background: #576574;
+}
+
+.nav-item{
+    font-size: 28px;
+    font-family: 'Titillium Web', sans-serif;
+
+    padding-right: 8px;
+}
+
+.form{
+    align-items: center;
+}
+
+.button{
+    text-align: right;
+}
+
+.customer{
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.item{
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.order{
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.placeOrder{
+    right: 0;
+    bottom: 0;
+    text-align: right;
+}
+
+.head{
+    color: #c8d6e5;
+    background: #222f3e;
+}
+
+#total{
+    font-size: 30px;
+    color: #3d98ef;
+}
+
+#total-text{
+    color: #3d98ef;
+    font-size: 13px;
+}
+
+#contentBox{
+    margin-left: 900px;
+}
+
+
+
