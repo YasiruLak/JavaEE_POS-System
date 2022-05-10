@@ -89,3 +89,33 @@ $("#btnItemDelete").click(function (){
         }
     });
 });
+
+$("#btnItemUpdate").click(function (){
+    let itemOb = {
+        itemCode: $("#txtItemCode").val(),
+        itemName: $("#txtItemName").val(),
+        itemQty: $("#txtItemQuantity").val(),
+        itemPrice: $("#txtItemUnitPrice").val()
+    };
+    $.ajax({
+        url: "item",
+        method: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(itemOb),
+        success: function (res){
+            if (res.status == 200){
+                alert(res.message);
+                reset();
+                loadAllItem();
+            } else if (res.status == 400){
+                alert(res.message);
+            } else {
+                alert(res.data);
+            }
+        },
+        error: function (ob, errorStus) {
+            console.log(ob);
+            console.log(errorStus);
+        }
+    });
+});

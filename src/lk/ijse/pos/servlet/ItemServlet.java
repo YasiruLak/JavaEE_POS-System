@@ -1,9 +1,7 @@
 package lk.ijse.pos.servlet;
 
 import javax.annotation.Resource;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -174,6 +172,50 @@ public class ItemServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject jsonObject = reader.readObject();
+        String itemCode = jsonObject.getString("itemCode");
+        String itemName = jsonObject.getString("itemName");
+        String itemQty = jsonObject.getString("itemQty");
+        String itemPrice = jsonObject.getString("itemPrice");
+
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("Application/json");
+
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Item SET name=?,qtyOnHand=?,price=? WHERE itemCode=?");
+            preparedStatement.setObject(1,itemName);
+            preparedStatement.setObject(2,itemQty);
+            preparedStatement.setObject(3,itemPrice);
+            preparedStatement.setObject(4,itemCode);
+
+            if (preparedStatement.executeUpdate() > 0){
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 200);
+                objectBuilder.add("message", "Successfully Updated");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }else{
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Update Failed");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Update Failed");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        }
 
     }
 }
