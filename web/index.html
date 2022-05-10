@@ -131,44 +131,47 @@
 <!--Customer Manage Content Start-->
 <section class="container-fluid mt-5" id="customerContent">
     <section class="container-fluid mt-5">
-        <div class="row">
-            <div class="mb-3 col">
-                <label class="form-label" for="txtCusId">Customer ID</label>
-                <input class="form-control" id="txtCusId" placeholder="C00-001" type="text">
-                <p><small class="text-danger pl-1" id="lblCusId"></small></p>
+        <form id="customerForm">
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtCusId">Customer ID</label>
+                    <input class="form-control" id="txtCusId" placeholder="C00-001" type="text">
+                    <p><small class="text-danger pl-1" id="lblCusId"></small></p>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtCusName">Customer Name</label>
+                    <input class="form-control" id="txtCusName" placeholder="Yasiru Dahanayaka" type="text">
+                    <p><small class="text-danger pl-1" id="lblCusName"></small></p>
+                </div>
             </div>
-            <div class="mb-3 col">
-                <label class="form-label" for="txtCusName">Customer Name</label>
-                <input class="form-control" id="txtCusName" placeholder="Yasiru Dahanayaka" type="text">
-                <p><small class="text-danger pl-1" id="lblCusName"></small></p>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtCusAddress">Customer Address</label>
+                    <input class="form-control" id="txtCusAddress" placeholder="Mapalagama Galle" type="text">
+                    <p><small class="text-danger pl-1" id="lblCusAddress"></small></p>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtCusContact">Customer Tp</label>
+                    <input class="form-control" id="txtCusContact" placeholder="076 8383493" type="text">
+                    <p><small class="text-danger pl-1" id="lblCusContact"></small></p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="mb-3 col">
-                <label class="form-label" for="txtCusAddress">Customer Address</label>
-                <input class="form-control" id="txtCusAddress" placeholder="Mapalagama Galle" type="text">
-                <p><small class="text-danger pl-1" id="lblCusAddress"></small></p>
-            </div>
-            <div class="mb-3 col">
-                <label class="form-label" for="txtCusContact">Customer Tp</label>
-                <input class="form-control" id="txtCusContact" placeholder="076 8383493" type="text">
-                <p><small class="text-danger pl-1" id="lblCusContact"></small></p>
-            </div>
-        </div>
+            <section class="container-fluid mt-3 button">
+                <button class="btn btn-primary" id="btnCustomerSave" type="button">Save</button>
+                <button class="btn btn-success" id="btnGetAllCustomer" type="button">Get All</button>
+                <button class="btn btn-warning" id="btnUpdateCustomer" type="button">Update</button>
+                <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
+            </section>
+        </form>
     </section>
 
-    <section class="container-fluid mt-3 button">
-        <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
-        <button class="btn btn-success" id="btnUpdateCustomer" type="button">Update</button>
-        <button class="btn btn-primary" id="btnCustomerSave" type="button">Add Customer</button>
 
-    </section>
 
     <section class="container-fluid mt-3">
         <form class="d-flex">
             <input aria-label="Search" class="form-control me-2" id="txtSearchCustomer" placeholder="Search"
                    type="search">
-            <button class="btn btn-outline-success" id="btnSearchCustomer" type="submit">Search</button>
+            <button class="btn btn-outline-success" id="btnSearchCustomer" type="button">Search</button>
         </form>
     </section>
 
@@ -194,43 +197,44 @@
 <!--Item Manage Content Start-->
 <section class="container-fluid mt-5" id="itemContent">
     <section class="container-fluid mt-3">
-        <div class="row">
-            <div class="mb-3 col">
-                <label class="form-label" for="txtItemCode">Item Code</label>
-                <input class="form-control" id="txtItemCode" placeholder="I00-000" type="text">
-                <p><small class="text-danger pl-1" id="lblItemId"></small></p>
+        <form id="itemForm">
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtItemCode">Item Code</label>
+                    <input class="form-control" id="txtItemCode" placeholder="I00-000" type="text">
+                    <p><small class="text-danger pl-1" id="lblItemId"></small></p>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtItemName">Item Name</label>
+                    <input class="form-control" id="txtItemName" placeholder="Maggi Noodles" type="text">
+                    <p><small class="text-danger pl-1" id="lblItemName"></small></p>
+                </div>
             </div>
-            <div class="mb-3 col">
-                <label class="form-label" for="txtItemName">Item Name</label>
-                <input class="form-control" id="txtItemName" placeholder="Maggi Noodles" type="text">
-                <p><small class="text-danger pl-1" id="lblItemName"></small></p>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtItemQuantity">Quantity</label>
+                    <input class="form-control" id="txtItemQuantity" placeholder="40" type="text">
+                    <p><small class="text-danger pl-1" id="lblItemQty"></small></p>
+                </div>
+                <div class="mb-3 col">
+                    <label class="form-label" for="txtItemUnitPrice">Unit Price</label>
+                    <input class="form-control" id="txtItemUnitPrice" placeholder="65.00" type="text">
+                    <p><small class="text-danger pl-1" id="lblItemUnitPrice"></small></p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="mb-3 col">
-                <label class="form-label" for="txtItemQuantity">Quantity</label>
-                <input class="form-control" id="txtItemQuantity" placeholder="40" type="text">
-                <p><small class="text-danger pl-1" id="lblItemQty"></small></p>
-            </div>
-            <div class="mb-3 col">
-                <label class="form-label" for="txtItemUnitPrice">Unit Price</label>
-                <input class="form-control" id="txtItemUnitPrice" placeholder="65.00" type="text">
-                <p><small class="text-danger pl-1" id="lblItemUnitPrice"></small></p>
-            </div>
-        </div>
-    </section>
-
-    <section class="container-fluid mt-3 button">
-        <button class="btn btn-danger" id="btnItemDelete" type="button">Delete</button>
-        <button class="btn btn-success" id="btnItemUpdate" type="button">Update</button>
-        <button class="btn btn-primary" id="btnItemSave" type="button">Add Item</button>
-
+            <section class="container-fluid mt-3 button">
+                <button class="btn btn-primary" id="btnItemSave" type="button">Save</button>
+                <button class="btn btn-success" id="btnGetAllItem" type="button">Get All</button>
+                <button class="btn btn-warning" id="btnItemUpdate" type="button">Update</button>
+                <button class="btn btn-danger" id="btnItemDelete" type="button">Delete</button>
+            </section>
+        </form>
     </section>
 
     <section class="container-fluid mt-3">
         <form class="d-flex">
             <input aria-label="Search" class="form-control me-2" id="txtSearchItem" placeholder="Search" type="search">
-            <button class="btn btn-outline-success" id="btnItemSearch" type="submit">Search</button>
+            <button class="btn btn-outline-success" id="btnItemSearch" type="button">Search</button>
         </form>
     </section>
 
