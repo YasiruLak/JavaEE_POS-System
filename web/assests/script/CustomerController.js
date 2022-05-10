@@ -94,3 +94,33 @@ $("#btnDeleteCustomer").click(function (){
         }
     });
 });
+
+$("#btnUpdateCustomer").click(function (){
+    let cusOb = {
+        id: $("#txtCusId").val(),
+        name: $("#txtCusName").val(),
+        address: $("#txtCusAddress").val(),
+        contact: $("#txtCusContact").val()
+    };
+    $.ajax({
+        url: "customer",
+        method: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(cusOb),
+        success: function (res){
+            if (res.status == 200){
+                alert(res.message);
+                reset();
+                loadAllCustomer()
+            } else if (res.status == 400){
+                alert(res.message);
+            } else {
+                alert(res.data);
+            }
+        },
+        error: function (ob, errorStus) {
+            console.log(ob);
+            console.log(errorStus);
+        }
+    });
+});
