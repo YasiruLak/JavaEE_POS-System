@@ -5,7 +5,7 @@ $("#itemContent").css("display", "none");
 $("#orderContent").css("display", "none");
 $("#purchaseOrderContent").css("display", "none");
 
-$("#linkHome").css('color', 'blue');
+$("#linkHome").css('color', 'white');
 $("#linkCustomer").css('color', 'black');
 $("#linkItem").css('color', 'black');
 $("#linkOrder").css('color', 'black');
@@ -20,7 +20,7 @@ $("#linkCustomer").click(function () {
     $("#purchaseOrderContent").css("display", "none");
 
     $("#linkHome").css('color', 'black');
-    $("#linkCustomer").css('color', 'blue');
+    $("#linkCustomer").css('color', 'white');
     $("#linkItem").css('color', 'black');
     $("#linkOrder").css('color', 'black');
     $("#linkPurchaseOrder").css('color', 'black');
@@ -35,7 +35,7 @@ $("#linkItem").click(function () {
 
     $("#linkHome").css('color', 'black');
     $("#linkCustomer").css('color', 'black');
-    $("#linkItem").css('color', 'blue');
+    $("#linkItem").css('color', 'white');
     $("#linkOrder").css('color', 'black');
     $("#linkPurchaseOrder").css('color', 'black');
 });
@@ -50,7 +50,7 @@ $("#linkOrder").click(function () {
     $("#linkHome").css('color', 'black');
     $("#linkCustomer").css('color', 'black');
     $("#linkItem").css('color', 'black');
-    $("#linkOrder").css('color', 'blue');
+    $("#linkOrder").css('color', 'white');
     $("#linkPurchaseOrder").css('color', 'black');
 
     setCurrentDate();
@@ -69,7 +69,7 @@ $("#linkPurchaseOrder").click(function () {
     $("#linkCustomer").css('color', 'black');
     $("#linkItem").css('color', 'black');
     $("#linkOrder").css('color', 'black');
-    $("#linkPurchaseOrder").css('color', 'blue');
+    $("#linkPurchaseOrder").css('color', 'white');
 
     loadAllOrderDetail();
     loadAllOrder();
@@ -82,15 +82,13 @@ $("#linkHome").click(function () {
     $("#orderContent").css("display", "none");
     $("#purchaseOrderContent").css("display", "none");
 
-    $("#linkHome").css('color', 'blue');
+    $("#linkHome").css('color', 'white');
     $("#linkCustomer").css('color', 'black');
     $("#linkItem").css('color', 'black');
     $("#linkOrder").css('color', 'black');
     $("#linkPurchaseOrder").css('color', 'black');
 
-    customerCount();
-    itemCount();
-    orderCount();
+
 });
 
 

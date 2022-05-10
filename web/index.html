@@ -135,29 +135,29 @@
             <div class="row">
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusId">Customer ID</label>
-                    <input class="form-control" id="txtCusId" placeholder="C00-001" type="text">
+                    <input class="form-control" id="txtCusId" name="customerID" placeholder="C00-001" type="text">
                     <p><small class="text-danger pl-1" id="lblCusId"></small></p>
                 </div>
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusName">Customer Name</label>
-                    <input class="form-control" id="txtCusName" placeholder="Yasiru Dahanayaka" type="text">
+                    <input class="form-control" id="txtCusName" name="customerName" placeholder="Yasiru Dahanayaka" type="text">
                     <p><small class="text-danger pl-1" id="lblCusName"></small></p>
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusAddress">Customer Address</label>
-                    <input class="form-control" id="txtCusAddress" placeholder="Mapalagama Galle" type="text">
+                    <input class="form-control" id="txtCusAddress" name="customerAddress" placeholder="Mapalagama Galle" type="text">
                     <p><small class="text-danger pl-1" id="lblCusAddress"></small></p>
                 </div>
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusContact">Customer Tp</label>
-                    <input class="form-control" id="txtCusContact" placeholder="076 8383493" type="text">
+                    <input class="form-control" id="txtCusContact" name="customerContact" placeholder="076 8383493" type="text">
                     <p><small class="text-danger pl-1" id="lblCusContact"></small></p>
                 </div>
             </div>
             <section class="container-fluid mt-3 button">
-                <button class="btn btn-primary" id="btnCustomerSave" type="button">Save</button>
+                <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save</button>
                 <button class="btn btn-success" id="btnGetAllCustomer" type="button">Get All</button>
                 <button class="btn btn-warning" id="btnUpdateCustomer" type="button">Update</button>
                 <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
@@ -462,6 +462,7 @@
 
 <script src="assests/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assests/jQuery/jquery-3.6.0.min.js"></script>
+<script src="assests/script/CustomerController.js"></script>
 <script src="assests/script/javaScript.js"></script>
 
 </body>
