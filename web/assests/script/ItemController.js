@@ -8,6 +8,7 @@ $("#btnItemSave").click(function (){
             if (res.status == 200){
                 alert(res.message);
                 reset();
+                loadAllItem();
             }else{
                 alert(res.data);
             }
@@ -19,6 +20,8 @@ $("#btnItemSave").click(function (){
         }
     });
 });
+
+loadAllItem();
 
 function reset(){
     $("#txtItemCode").val("");
@@ -33,13 +36,28 @@ function bindClickEvent() {
 
         let id = $(this).children().eq(0).text();
         let name = $(this).children().eq(1).text();
-        let qty = $(this).children().eq(2).text();
+        let qtyOnHand = $(this).children().eq(2).text();
         let price = $(this).children().eq(3).text();
 
         $("#txtItemCode").val(id);
         $("#txtItemName").val(name);
         $("#txtItemUnitPrice").val(price);
-        $("#txtItemQuantity").val(qty);
+        $("#txtItemQuantity").val(qtyOnHand);
     });
 }
 
+function loadAllItem(){
+    $("#itemToTable").empty();
+    $.ajax({
+        url:"item?option=GETALL",
+        method:"GET",
+        success:function (resp){
+            for (const item of resp.data){
+                let row = `<tr><td>${item.itemCode}</td><td>${item.name}</td><td>${item.qtyOnHand}</td><td>${item.price}</td></tr>`;
+                $("#itemToTable").append(row);
+            }
+            bindClickEvent();
+        }
+    });
+
+}
