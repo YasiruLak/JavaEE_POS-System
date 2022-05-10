@@ -24,6 +24,8 @@ $("#linkCustomer").click(function () {
     $("#linkItem").css('color', 'black');
     $("#linkOrder").css('color', 'black');
     $("#linkPurchaseOrder").css('color', 'black');
+
+
 });
 
 $("#linkItem").click(function () {
@@ -53,8 +55,6 @@ $("#linkOrder").click(function () {
     $("#linkOrder").css('color', 'white');
     $("#linkPurchaseOrder").css('color', 'black');
 
-    setCurrentDate();
-    generateOrderID();
 
 });
 
@@ -71,8 +71,7 @@ $("#linkPurchaseOrder").click(function () {
     $("#linkOrder").css('color', 'black');
     $("#linkPurchaseOrder").css('color', 'white');
 
-    loadAllOrderDetail();
-    loadAllOrder();
+
 });
 
 $("#linkHome").click(function () {
