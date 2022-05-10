@@ -133,6 +133,41 @@ public class ItemServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String itemCode = req.getParameter("itemCode");
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("Delete from Item where itemCode=?");
+            preparedStatement.setObject(1, itemCode);
+
+            if (preparedStatement.executeUpdate() > 0){
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status",200);
+                objectBuilder.add("data","");
+                objectBuilder.add("message","Successfully Deleted");
+                writer.print(objectBuilder.build());
+            }else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 400);
+                objectBuilder.add("data", "Wrong Id Inserted");
+                objectBuilder.add("message", "");
+                writer.print(objectBuilder.build());
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            resp.setStatus(200);
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Error");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        }
 
     }
 

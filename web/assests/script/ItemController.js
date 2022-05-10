@@ -61,3 +61,31 @@ function loadAllItem(){
     });
 
 }
+
+$("#btnItemDelete").click(function (){
+    let itemCode = $("#txtItemCode").val();
+
+    $.ajax({
+        url: "item?itemCode=" + itemCode,
+        method: "DELETE",
+
+        success: function (res) {
+            console.log(res);
+            if (res.status == 200) {
+                alert(res.message);
+                reset();
+                loadAllItem();
+            } else if (res.status == 400) {
+                alert(res.data);
+            } else {
+                alert(res.data);
+            }
+
+        },
+        error: function (ob, status, t) {
+            console.log(ob);
+            console.log(status);
+            console.log(t);
+        }
+    });
+});
