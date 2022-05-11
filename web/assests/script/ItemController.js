@@ -2,25 +2,37 @@ loadAllItem();
 
 $("#btnItemSave").click(function (){
     let data = $("#itemForm").serialize();
-    $.ajax({
-        url:"item",
-        method:"POST",
-        data:data,
-        success: function (res){
-            if (res.status == 200){
-                alert(res.message);
-                resetItem();
-                loadAllItem();
-            }else{
-                alert(res.data);
+
+    if ($("#txtItemCode").val() == '') {
+        alert("Can not be Item Code empty");
+    } else if ($("#txtItemName").val() == '') {
+        alert("Can not be Item Name empty");
+    }else if ($("#txtItemQuantity").val() == '') {
+        alert("Can not be Item Quantity empty");
+    }else if ($("#txtItemUnitPrice").val() == '') {
+        alert("Can not be Item Price empty");
+    }else{
+        $.ajax({
+            url:"item",
+            method:"POST",
+            data:data,
+            success: function (res){
+                if (res.status == 200){
+                    alert(res.message);
+                    resetItem();
+                    loadAllItem();
+                }else{
+                    alert(res.data);
+                }
+            },
+            error: function (ob, textStatus, error) {
+                console.log(ob);
+                console.log(textStatus);
+                console.log(error);
             }
-        },
-        error: function (ob, textStatus, error) {
-            console.log(ob);
-            console.log(textStatus);
-            console.log(error);
-        }
-    });
+        });
+    }
+
 });
 
 $("#btnGetAllItem").click(function (){

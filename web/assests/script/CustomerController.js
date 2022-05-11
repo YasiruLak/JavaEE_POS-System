@@ -2,9 +2,17 @@ loadAllCustomer();
 
 $("#btnSaveCustomer").click(function () {
     let data = $("#customerForm").serialize();
-    if ($("#txtCusId").val() == null || $("#txtCusName").val() == null || $("#txtCusAddress").val() == null || $("#txtCusContact").val() == null) {
-        alert("Can Not Be Text Filed Null");
-    } else {
+
+    if ($("#txtCusId").val() == '') {
+        alert("Can not be Customer Id empty");
+    } else if ($("#txtCusName").val() == '') {
+        alert("Can not be Customer Name empty");
+    }else if ($("#txtCusAddress").val() == '') {
+        alert("Can not be Customer Address empty");
+    }else if ($("#txtCusContact").val() == '') {
+        alert("Can not be Customer Contact empty");
+    }else{
+
         $.ajax({
             url: "customer",
             method: "POST",
