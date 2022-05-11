@@ -138,3 +138,19 @@ $("#btnItemUpdate").click(function (){
         }
     });
 });
+
+$("#btnItemSearch").click(function (){
+    let itemCode = $("#txtSearchItem").val();
+    $("#itemToTable").empty();
+    $.ajax({
+        url:"item?option=SEARCH&itemCode=" + itemCode,
+        method:"GET",
+        success:function (resp){
+            for (const item of resp.data){
+                let row = `<tr><td>${item.itemCode}</td><td>${item.name}</td><td>${item.qtyOnHand}</td><td>${item.price}</td></tr>`;
+                $("#itemToTable").append(row);
+            }
+            bindClickEvent();
+        }
+    });
+});

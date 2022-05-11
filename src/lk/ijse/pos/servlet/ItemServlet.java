@@ -36,6 +36,7 @@ public class ItemServlet extends HttpServlet {
         try{
 
             String option = req.getParameter("option");
+            String code = req.getParameter("itemCode");
             resp.setContentType("application/json");
             Connection connection = dataSource.getConnection();
             PrintWriter writer = resp.getWriter();
@@ -44,7 +45,31 @@ public class ItemServlet extends HttpServlet {
 
             switch (option){
                 case "SEARCH":
+                    Connection connection1 = dataSource.getConnection();
+                    PreparedStatement preparedStatement = connection1.prepareStatement("SELECT * FROM Item where itemCode=?");
+                    preparedStatement.setObject(1,code);
+                    ResultSet resultSet1 = preparedStatement.executeQuery();
+                    JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
 
+                    while (resultSet1.next()){
+                        String itemCode = resultSet1.getString(1);
+                        String name = resultSet1.getString(2);
+                        String qtyOnHand = resultSet1.getString(3);
+                        String price = resultSet1.getString(4);
+
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        objectBuilder.add("itemCode", itemCode);
+                        objectBuilder.add("name", name);
+                        objectBuilder.add("qtyOnHand", qtyOnHand);
+                        objectBuilder.add("price", price);
+                        arrayBuilder1.add(objectBuilder.build());
+                    }
+
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", arrayBuilder1.build());
+                    writer.print(response.build());
                     break;
 
                 case "GETALL":
@@ -66,11 +91,11 @@ public class ItemServlet extends HttpServlet {
                         arrayBuilder.add(objectBuilder.build());
                     }
 
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    response.add("status", 200);
-                    response.add("message", "Done");
-                    response.add("data", arrayBuilder.build());
-                    writer.print(response.build());
+                    JsonObjectBuilder response1 = Json.createObjectBuilder();
+                    response1.add("status", 200);
+                    response1.add("message", "Done");
+                    response1.add("data", arrayBuilder.build());
+                    writer.print(response1.build());
 
                     break;
             }
