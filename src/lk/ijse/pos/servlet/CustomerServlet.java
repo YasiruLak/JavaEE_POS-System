@@ -35,6 +35,7 @@ public class CustomerServlet extends HttpServlet {
         try {
 
         String option = req.getParameter("option");
+        String customerID = req.getParameter("customerID");
         resp.setContentType("application/json");
         Connection connection = dataSource.getConnection();
         PrintWriter writer = resp.getWriter();
@@ -43,6 +44,32 @@ public class CustomerServlet extends HttpServlet {
 
         switch (option){
             case "SEARCH":
+
+                Connection connection1 = dataSource.getConnection();
+                PreparedStatement preparedStatement = connection1.prepareStatement("SELECT * FROM Customer where id=?");
+                preparedStatement.setObject(1,customerID);
+                ResultSet resultSet1 = preparedStatement.executeQuery();
+                JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
+
+                while (resultSet1.next()){
+                    String id = resultSet1.getString(1);
+                    String name = resultSet1.getString(2);
+                    String address = resultSet1.getString(3);
+                    String contact = resultSet1.getString(4);
+
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    objectBuilder.add("id", id);
+                    objectBuilder.add("name", name);
+                    objectBuilder.add("address", address);
+                    objectBuilder.add("contact", contact);
+                    arrayBuilder1.add(objectBuilder.build());
+                }
+
+                JsonObjectBuilder response1 = Json.createObjectBuilder();
+                response1.add("status", 200);
+                response1.add("message", "Done");
+                response1.add("data", arrayBuilder1.build());
+                writer.print(response1.build());
 
                 break;
 

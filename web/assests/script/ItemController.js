@@ -1,3 +1,5 @@
+loadAllItem();
+
 $("#btnItemSave").click(function (){
     let data = $("#itemForm").serialize();
     $.ajax({
@@ -7,7 +9,7 @@ $("#btnItemSave").click(function (){
         success: function (res){
             if (res.status == 200){
                 alert(res.message);
-                reset();
+                resetItem();
                 loadAllItem();
             }else{
                 alert(res.data);
@@ -21,9 +23,13 @@ $("#btnItemSave").click(function (){
     });
 });
 
-loadAllItem();
+$("#btnGetAllItem").click(function (){
+    resetItem();
+    loadAllItem();
+});
 
-function reset(){
+
+function resetItem(){
     $("#txtItemCode").val("");
     $("#txtItemName").val("");
     $("#txtItemUnitPrice").val("");
@@ -41,8 +47,9 @@ function bindClickEvent() {
 
         $("#txtItemCode").val(id);
         $("#txtItemName").val(name);
-        $("#txtItemUnitPrice").val(price);
         $("#txtItemQuantity").val(qtyOnHand);
+        $("#txtItemUnitPrice").val(price);
+
     });
 }
 
@@ -59,7 +66,6 @@ function loadAllItem(){
             bindClickEvent();
         }
     });
-
 }
 
 $("#btnItemDelete").click(function (){
@@ -73,7 +79,7 @@ $("#btnItemDelete").click(function (){
             console.log(res);
             if (res.status == 200) {
                 alert(res.message);
-                reset();
+                resetItem();
                 loadAllItem();
             } else if (res.status == 400) {
                 alert(res.data);
@@ -90,6 +96,7 @@ $("#btnItemDelete").click(function (){
     });
 });
 
+
 $("#btnItemUpdate").click(function (){
     let itemOb = {
         itemCode: $("#txtItemCode").val(),
@@ -105,7 +112,7 @@ $("#btnItemUpdate").click(function (){
         success: function (res){
             if (res.status == 200){
                 alert(res.message);
-                reset();
+                resetItem();
                 loadAllItem();
             } else if (res.status == 400){
                 alert(res.message);

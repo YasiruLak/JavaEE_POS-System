@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="assests/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assests/styles/style.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/cba6695e4b.js" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/cba6695e4b.js"></script>
 </head>
 <body>
 
@@ -58,7 +58,8 @@
                                         <div class="card ">
                                             <div class="card-header bg-secondary text-white">Customers</div>
                                             <div class="card-body">
-                                                <div class="dash-tile-text text-right text-black-50" id="customerCount"><h2>0</h2></div>
+                                                <div class="dash-tile-text text-right text-black-50" id="customerCount">
+                                                    <h2>0</h2></div>
                                             </div>
                                         </div>
                                     </div>
@@ -66,7 +67,8 @@
                                         <div class="card">
                                             <div class="card-header bg-secondary text-white ">Items</div>
                                             <div class="card-body">
-                                                <div class="dash-tile-text text-right text-black-50" id="itemCount"><h2>0</h2></div>
+                                                <div class="dash-tile-text text-right text-black-50" id="itemCount"><h2>
+                                                    0</h2></div>
                                             </div>
                                         </div>
                                     </div>
@@ -74,7 +76,8 @@
                                         <div class="card">
                                             <div class="card-header bg-secondary text-white">My Orders</div>
                                             <div class="card-body">
-                                                <div class="dash-tile-text text-right text-black-50" id="orderCount"><h2>0</h2></div>
+                                                <div class="dash-tile-text text-right text-black-50" id="orderCount">
+                                                    <h2>0</h2></div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,19 +143,22 @@
                 </div>
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusName">Customer Name</label>
-                    <input class="form-control" id="txtCusName" name="customerName" placeholder="Yasiru Dahanayaka" type="text">
+                    <input class="form-control" id="txtCusName" name="customerName" placeholder="Yasiru Dahanayaka"
+                           type="text">
                     <p><small class="text-danger pl-1" id="lblCusName"></small></p>
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusAddress">Customer Address</label>
-                    <input class="form-control" id="txtCusAddress" name="customerAddress" placeholder="Mapalagama Galle" type="text">
+                    <input class="form-control" id="txtCusAddress" name="customerAddress" placeholder="Mapalagama Galle"
+                           type="text">
                     <p><small class="text-danger pl-1" id="lblCusAddress"></small></p>
                 </div>
                 <div class="mb-3 col">
                     <label class="form-label" for="txtCusContact">Customer Tp</label>
-                    <input class="form-control" id="txtCusContact" name="customerContact" placeholder="076 8383493" type="text">
+                    <input class="form-control" id="txtCusContact" name="customerContact" placeholder="076 8383493"
+                           type="text">
                     <p><small class="text-danger pl-1" id="lblCusContact"></small></p>
                 </div>
             </div>
@@ -166,10 +172,10 @@
     </section>
 
 
-
     <section class="container-fluid mt-3">
         <form class="d-flex">
-            <input aria-label="Search" class="form-control me-2" id="txtSearchCustomer" placeholder="Search"
+            <input aria-label="Search" class="form-control me-2" id="txtSearchCustomer" name="customerSearch"
+                   placeholder="Enter Customer ID"
                    type="search">
             <button class="btn btn-outline-success" id="btnSearchCustomer" type="button">Search</button>
         </form>
@@ -206,7 +212,8 @@
                 </div>
                 <div class="mb-3 col">
                     <label class="form-label" for="txtItemName">Item Name</label>
-                    <input class="form-control" id="txtItemName" name="itemName" placeholder="Maggi Noodles" type="text">
+                    <input class="form-control" id="txtItemName" name="itemName" placeholder="Maggi Noodles"
+                           type="text">
                     <p><small class="text-danger pl-1" id="lblItemName"></small></p>
                 </div>
             </div>
