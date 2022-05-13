@@ -9,3 +9,11 @@ function setCurrentDate(){
 }
 
 setCurrentDate();
+
+function loadCustomerComboBoxData(value){
+    $("#txtOrderCusID").append(value);
+}
+
+// function loadItemComboBoxData(value){
+//     $("#txtOrderItemCode").append(value);
+// }

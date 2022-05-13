@@ -32,6 +32,7 @@ $("#btnSaveCustomer").click(function () {
                 console.log(error);
             }
         });
+
     }
 
 });
@@ -39,6 +40,7 @@ $("#btnSaveCustomer").click(function () {
 $("#btnGetAllCustomer").click(function () {
     resetCustomer();
     loadAllCustomer();
+
 });
 
 function resetCustomer() {
@@ -58,8 +60,10 @@ function loadAllCustomer() {
             for (const customer of resp.data) {
                 let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.contact}</td></tr>`;
                 $("#customerTable").append(row);
+                loadCustomerComboBoxData("<option>"+customer.id+"</option>");
             }
             bindClickEvents();
+
         }
     });
 }

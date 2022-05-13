@@ -45,8 +45,7 @@ public class ItemServlet extends HttpServlet {
 
             switch (option){
                 case "SEARCH":
-                    Connection connection1 = dataSource.getConnection();
-                    PreparedStatement preparedStatement = connection1.prepareStatement("SELECT * FROM Item where itemCode=?");
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Item where itemCode=?");
                     preparedStatement.setObject(1,code);
                     ResultSet resultSet1 = preparedStatement.executeQuery();
                     JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
