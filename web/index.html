@@ -240,7 +240,8 @@
 
     <section class="container-fluid mt-5">
         <form class="d-flex">
-            <input aria-label="Search" class="form-control me-2" id="txtSearchItem" placeholder="Enter Item Code" type="search">
+            <input aria-label="Search" class="form-control me-2" id="txtSearchItem" placeholder="Enter Item Code"
+                   type="search">
             <button class="btn btn-outline-success" id="btnItemSearch" type="button">Search</button>
         </form>
     </section>
@@ -290,20 +291,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="txtOrderCusID">Customer ID :</label>
-                                            <input class="form-control" id="txtOrderCusID">
+                                    <div class="row">
+                                        <div class="col-6 form-group">
+                                            <label>Customer ID:</label>
+                                            <select class="form-control" id="txtOrderCusID">
+
+                                            </select>
+                                            <span class="control-error"
+                                                  id="cus-empty-error"></span>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="txtOrderCusContact">Contact :</label>
+                                                <input class="form-control" disabled id="txtOrderCusContact">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="txtOrderCusContact">Contact :</label>
-                                            <input class="form-control" disabled id="txtOrderCusContact">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
@@ -330,8 +333,10 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Item Code :</label>
-                                            <input class="form-control" id="txtOrderItemCode" type="text">
+                                            <label>Item Code:</label>
+                                            <select class="form-control" id="txtOrderItemCode"></select>
+                                            <span class="control-error"
+                                                  id="item-empty-error"></span>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -363,7 +368,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group text-right mt-2">
-                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnAddToCart" type="button">
+                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnAddToCart"
+                                            type="button">
                                         Add To Cart
                                     </button>
                                 </div>
