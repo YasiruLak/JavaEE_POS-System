@@ -2,7 +2,7 @@
 
 
 *{
-    font-family: 'Titillium Web', sans-serif;
+    font-family: Ubuntu;
 }
 
 .navColor{
@@ -11,8 +11,6 @@
 
 .nav-item{
     font-size: 28px;
-    font-family: 'Titillium Web', sans-serif;
-
     padding-right: 8px;
 }
 
@@ -45,10 +43,6 @@
     text-align: right;
 }
 
-.head{
-    color: #c8d6e5;
-    background: #222f3e;
-}
 
 #total{
     font-size: 30px;
@@ -58,6 +52,16 @@
 #total-text{
     color: #3d98ef;
     font-size: 13px;
+}
+
+#total-text1{
+    color: #ef5350;
+    font-size: 13px;
+}
+
+#subtotal{
+    color: #ef5350;
+    font-size: 30px;
 }
 
 #contentBox{
