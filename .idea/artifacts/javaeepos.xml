@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="javaeepos">
+  <artifact type="war" name="javaeepos">
     <output-path>$PROJECT_DIR$/out/artifacts/javaeepos</output-path>
     <root id="archive" name="javaeepos.war">
       <element id="directory" name="WEB-INF">
