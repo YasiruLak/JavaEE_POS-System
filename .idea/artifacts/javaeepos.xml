@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="javaeepos">
+    <output-path>$PROJECT_DIR$/out/artifacts/javaeepos</output-path>
+    <root id="archive" name="javaeepos.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="JavaEE POS System" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.25" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="JavaEE POS System/web/Web" />
+    </root>
+  </artifact>
+</component>

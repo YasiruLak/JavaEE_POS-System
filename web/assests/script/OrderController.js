@@ -14,9 +14,9 @@ setCurrentDate();
 
 function loadItemComboBoxData(value) {
     $("#txtOrderItemCode").append(value);
+
 }
 
 function loadCustomerComboBoxData(value){
     $("#txtOrderCusID").append(value);
 }
-
