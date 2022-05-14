@@ -49,7 +49,7 @@ public class CustomerServlet extends HttpServlet {
                 PreparedStatement preparedStatement = connection1.prepareStatement("SELECT * FROM Customer where id=?");
                 preparedStatement.setObject(1,customerID);
                 ResultSet resultSet1 = preparedStatement.executeQuery();
-                JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
+                JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
                 while (resultSet1.next()){
                     String id = resultSet1.getString(1);
@@ -62,13 +62,13 @@ public class CustomerServlet extends HttpServlet {
                     objectBuilder.add("name", name);
                     objectBuilder.add("address", address);
                     objectBuilder.add("contact", contact);
-                    arrayBuilder1.add(objectBuilder.build());
+                    arrayBuilder.add(objectBuilder.build());
                 }
 
                 JsonObjectBuilder response1 = Json.createObjectBuilder();
                 response1.add("status", 200);
                 response1.add("message", "Done");
-                response1.add("data", arrayBuilder1.build());
+                response1.add("data", arrayBuilder.build());
                 writer.print(response1.build());
 
                 break;
@@ -76,7 +76,7 @@ public class CustomerServlet extends HttpServlet {
             case "GETALL":
 
                 ResultSet resultSet = connection.prepareStatement("SELECT * FROM Customer").executeQuery();
-                JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+                JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
 
                 while (resultSet.next()){
                     String id = resultSet.getString(1);
@@ -89,13 +89,13 @@ public class CustomerServlet extends HttpServlet {
                     objectBuilder.add("name", name);
                     objectBuilder.add("address", address);
                     objectBuilder.add("contact", contact);
-                    arrayBuilder.add(objectBuilder.build());
+                    arrayBuilder1.add(objectBuilder.build());
                 }
 
                 JsonObjectBuilder response = Json.createObjectBuilder();
                 response.add("status", 200);
                 response.add("message", "Done");
-                response.add("data", arrayBuilder.build());
+                response.add("data", arrayBuilder1.build());
                 writer.print(response.build());
 
                 break;

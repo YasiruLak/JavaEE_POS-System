@@ -20,3 +20,34 @@ function loadItemComboBoxData(value) {
 function loadCustomerComboBoxData(value){
     $("#txtOrderCusID").append(value);
 }
+
+$("#txtOrderCusID").click(function (){
+
+    let id = $("#txtOrderCusID").val();
+    let name = $("#txtOrderCusName").val();
+    let address = $("#txtOrderCusAddress").val();
+    let contact = $("#txtOrderCusContact").val();
+
+
+    $.ajax({
+        url: "customer?option=GETALL",
+        method: "GET",
+        success: function (resp) {
+            for (const customer of resp.data) {
+
+                if (customer.id == id){
+
+                    name = customer.name;
+                    address = customer.address;
+                    contact = customer.contact;
+
+                    $("#txtOrderCusName").val(name);
+                    $("#txtOrderCusAddress").val(address);
+                    $("#txtOrderCusContact").val(contact);
+                }
+
+            }
+        }
+    });
+
+});
