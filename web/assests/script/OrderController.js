@@ -1,3 +1,5 @@
+
+
 function setCurrentDate(){
     let orderDate = $('#txtOrderDate');
     let today = new Date();
@@ -10,10 +12,11 @@ function setCurrentDate(){
 
 setCurrentDate();
 
+function loadItemComboBoxData(value) {
+    $("#txtOrderItemCode").append(value);
+}
+
 function loadCustomerComboBoxData(value){
     $("#txtOrderCusID").append(value);
 }
 
-// function loadItemComboBoxData(value){
-//     $("#txtOrderItemCode").append(value);
-// }

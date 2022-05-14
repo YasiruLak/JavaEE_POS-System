@@ -50,18 +50,18 @@
 }
 
 #total-text{
-    color: #3d98ef;
-    font-size: 13px;
+    color: #3d98ef !important;
+    font-size: 13px !important;
 }
 
 #total-text1{
-    color: #ef5350;
-    font-size: 13px;
+    color: #ef5350 !important;
+    font-size: 13px !important;
 }
 
 #subtotal{
-    color: #ef5350;
-    font-size: 30px;
+    color: #ef5350 !important;
+    font-size: 30px !important;
 }
 
 #contentBox{
@@ -72,5 +72,9 @@
     color: white !important;
 }
 
+.control-error {
+    color: red;
+    font-size: 0.9em;
 
+}
 

@@ -18,9 +18,9 @@ $("#btnItemSave").click(function (){
             data:data,
             success: function (res){
                 if (res.status == 200){
+                    loadAllItem();
                     alert(res.message);
                     resetItem();
-                    loadAllItem();
                 }else{
                     alert(res.data);
                 }
@@ -74,6 +74,7 @@ function loadAllItem(){
             for (const item of resp.data){
                 let row = `<tr><td>${item.itemCode}</td><td>${item.name}</td><td>${item.qtyOnHand}</td><td>${item.price}</td></tr>`;
                 $("#itemToTable").append(row);
+                loadItemComboBoxData("<option>"+item.itemCode+"</option>");
             }
             bindClickEvent();
         }

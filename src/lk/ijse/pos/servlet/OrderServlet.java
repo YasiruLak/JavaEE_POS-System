@@ -34,22 +34,22 @@ public class OrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        try {
-            resp.setContentType("application/json");
-            Connection connection = dataSource.getConnection();
-            PrintWriter writer = resp.getWriter();
+//        try {
+//            resp.setContentType("application/json");
+//            Connection connection = dataSource.getConnection();
+//            PrintWriter writer = resp.getWriter();
+//
+//            resp.addHeader("Access-Control-Allow-Origin", "*");
+//
+//            ResultSet resultSet = connection.prepareStatement("SELECT * FROM Customer").executeQuery();
+//            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+//
+//            while (resultSet.next()){
+//
+//            }
 
-            resp.addHeader("Access-Control-Allow-Origin", "*");
-
-            ResultSet resultSet = connection.prepareStatement("SELECT * FROM Customer").executeQuery();
-            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-
-            while (resultSet.next()){
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 }
