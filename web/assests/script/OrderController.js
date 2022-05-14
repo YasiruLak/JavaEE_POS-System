@@ -51,3 +51,30 @@ $("#txtOrderCusID").click(function (){
     });
 
 });
+
+
+$("#txtOrderItemCode").click(function (){
+
+    let id = $("#txtOrderItemCode").val();
+    let name = $("#txtOrderItemName").val();
+    let qtyOnHand = $("#txtOrderItemQtyOnHand").val();
+    let price = $("#txtOrderItemPrice").val();
+
+    $.ajax({
+        url:"item?option=GETALL",
+        method:"GET",
+        success:function (resp){
+            for (const item of resp.data){
+                if (item.itemCode == id){
+                    name = item.name;
+                    qtyOnHand = item.qtyOnHand;
+                    price = item.price;
+
+                    $("#txtOrderItemName").val(name);
+                    $("#txtOrderItemQtyOnHand").val(qtyOnHand);
+                    $("#txtOrderItemPrice").val(price);
+                }
+            }
+        }
+    });
+});
