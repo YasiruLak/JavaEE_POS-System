@@ -279,7 +279,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Order ID :</label>
-                                            <input class="form-control" disabled id="txtOrderID" type="text">
+                                            <input class="form-control" id="txtOrderID" type="text">
                                             <span class="control-error"
                                                   id="orderId-invalid-error"></span>
                                         </div>
@@ -294,8 +294,8 @@
                                     <div class="row">
                                         <div class="col-6 form-group">
                                             <label>Customer ID:</label>
-                                            <select class="form-control" id="txtOrderCusID">
-
+                                            <select aria-label="Default select example" class="form-select" id="txtOrderCusID">
+                                                <option>Select ID</option>
                                             </select>
                                             <span class="control-error"
                                                   id="cus-empty-error"></span>
@@ -333,7 +333,9 @@
                                 <div class="row">
                                     <div class="col-6 form-group">
                                         <label>Item Code:</label>
-                                        <select class="form-control" id="txtOrderItemCode"></select>
+                                        <select aria-label="Default select example" class="form-select" id="txtOrderItemCode">
+                                            <option>Select Item</option>
+                                        </select>
                                         <span class="control-error"
                                               id="item-empty-error"></span>
                                     </div>
