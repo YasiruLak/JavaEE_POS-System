@@ -42,13 +42,30 @@ function loadItemComboBoxData(value) {
 
 }
 
-function loadCustomerComboBoxData(value){
-    $("#txtOrderCusID").append(value);
+function loadCustomerComboBoxData(){
+    $("#txtOrderCusID").empty();
+    // $("#custChombo").append($("<option></option>").attr("value", 0).text("Select Id"));
+    console.log("Enter")
+    let count = 0;
+    $.ajax({
+        url:"customer?option=GETALL",
+        method:"GET",
+        success:function (res){
+            console.log(res);
+            for (const customer of res.data){
+                $("#txtOrderCusID").append($("<option></option>").attr("value", count).text(customer.id));
+                count++;
+            }
+        },
+        error:function (ob, textStatus, error) {
+            alert(textStatus);
+        }
+    });
 }
 
 $("#txtOrderCusID").click(function (){
 
-    let id = $("#txtOrderCusID").val();
+    let id = $("#txtOrderCusID option:selected").text();
     let name = $("#txtOrderCusName").val();
     let address = $("#txtOrderCusAddress").val();
     let contact = $("#txtOrderCusContact").val();
@@ -141,6 +158,7 @@ $("#btnAddToCart").click(function () {
         $("#txtOrderItemName").val(itemName);
         $("#txtOrderItemPrice").val(unitPrice);
         $("#txtQty").val(qty);
+        $("#total").val(total);
 
     });
 

@@ -55,6 +55,8 @@ $("#linkOrder").click(function () {
     $("#linkOrder").css('color', 'white');
     $("#linkPurchaseOrder").css('color', 'black');
 
+    loadCustomerComboBoxData();
+
 
 });
 

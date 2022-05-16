@@ -99,6 +99,9 @@ public class CustomerServlet extends HttpServlet {
                 writer.print(response.build());
 
                 break;
+
+
+
         }
 
         connection.close();

@@ -60,7 +60,7 @@ function loadAllCustomer() {
             for (const customer of resp.data) {
                 let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.contact}</td></tr>`;
                 $("#customerTable").append(row);
-                loadCustomerComboBoxData("<option>"+customer.id+"</option>");
+                // loadCustomerComboBoxData("<option>"+customer.id+"</option>");
             }
             bindClickEvents();
 
