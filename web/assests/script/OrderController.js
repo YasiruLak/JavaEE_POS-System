@@ -44,7 +44,7 @@ function loadItemComboBoxData(value) {
 
 function loadCustomerComboBoxData(){
     $("#txtOrderCusID").empty();
-    // $("#custChombo").append($("<option></option>").attr("value", 0).text("Select Id"));
+    $("#txtOrderCusID").append($("<option></option>").attr("value", 0).text("Select Id"));
     console.log("Enter")
     let count = 0;
     $.ajax({
