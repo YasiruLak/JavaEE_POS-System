@@ -37,8 +37,8 @@ DESCRIBE orders;
 
 DROP TABLE IF EXISTS order_detail;
 CREATE TABLE IF NOT EXISTS order_detail(
-    iCode VARCHAR(15) NOT NULL,
     oId VARCHAR(15) NOT NULL,
+    iCode VARCHAR(15) NOT NULL,
     qty INT NOT NULL DEFAULT 0,
     price DOUBLE (12,2) NOT NULL,
     CONSTRAINT PRIMARY KEY (iCode, oId),
