@@ -1,4 +1,7 @@
 loadAllCustomer();
+// $("#btnSaveCustomer").attr('disabled', true);
+
+
 
 $("#btnSaveCustomer").click(function () {
     let data = $("#customerForm").serialize();
