@@ -114,8 +114,6 @@ $("#txtOrderCusID").click(function (){
 
 $("#txtOrderItemCode").click(function (){
 
-    console.log(1);
-
     let id = $("#txtOrderItemCode option:selected").text();
     let name = $("#txtOrderItemName").val();
     let qtyOnHand = $("#txtOrderItemQtyOnHand").val();
@@ -124,13 +122,10 @@ $("#txtOrderItemCode").click(function (){
     $.ajax({
         url:"item?option=GETALL",
         method:"GET",
-
         success:function (resp){
-            console.log(2);
             for (const item of resp.data){
                 if (item.itemCode == id){
 
-                    console.log(3);
                     name = item.name;
                     qtyOnHand = item.qtyOnHand;
                     price = item.price;
@@ -177,11 +172,22 @@ $("#btnAddToCart").click(function () {
         let qty = $(this).children(":eq(3)").text();
         let total = $(this).children(":eq(4)").text();
 
+        $.ajax({
+            url: "item?option=SEARCH&itemCode=" + itemCode,
+            method: "GET",
+            success: function (resp) {
+                for (const item of resp.data){
+                    let avQty = item.qtyOnHand;
+                    avQty = avQty - qty;
+                    $("#txtOrderItemQtyOnHand").val(avQty);
+                }
+            }
+        });
+
         $("#txtOrderItemCode option:selected").text(itemCode);
         $("#txtOrderItemName").val(itemName);
         $("#txtOrderItemPrice").val(unitPrice);
         $("#txtQty").val(qty);
-        $("#total option:selected").text(total);
 
     });
 
@@ -190,7 +196,7 @@ $("#btnAddToCart").click(function () {
 var itemCode;
 var itemName;
 var itemPrice;
-var itemQty;
+var itemQtyOnHand;
 var itemOrderQty;
 
 $("#addToCartTable").empty();
@@ -199,9 +205,8 @@ function loadOrderDetail() {
     itemCode = $("#txtOrderItemCode option:selected").text();
     itemName = $("#txtOrderItemName").val();
     itemPrice = $("#txtOrderItemPrice").val();
-    itemQty = $("#txtOrderItemQtyOnHand").val();
+    itemQtyOnHand = $("#txtOrderItemQtyOnHand").val();
     itemOrderQty = $("#txtQty").val();
-
 
     let total;
 
@@ -228,14 +233,14 @@ function minusQty(orderQty){
 var total = 0;
 function manageTotal(amount){
     total = amount;
-    $("#total option:selected").text(total);
+    $("#total").text(total);
 }
 
 function updateManageTotal(prvTotal,nowTotal) {
     total -= prvTotal;
     total += nowTotal;
 
-    $("#total option:selected").text(total);
+    $("#total").text(total);
 }
 
 function manageQuantity(prevQty,nowQty){
@@ -243,8 +248,8 @@ function manageQuantity(prevQty,nowQty){
     var nowQty = parseInt(nowQty);
     var availableQty = parseInt($("#txtOrderItemQtyOnHand").val());
 
-    availableQty = availableQty + prevQty;
-    availableQty = availableQty - nowQty;
+    availableQty += prevQty;
+    availableQty -= nowQty;
 
     $("#txtOrderItemQtyOnHand").val(availableQty);
 }
