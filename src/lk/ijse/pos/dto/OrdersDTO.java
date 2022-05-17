@@ -89,4 +89,17 @@ public class OrdersDTO {
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
+
+    @Override
+    public String toString() {
+        return "OrdersDTO{" +
+                "orderId='" + orderId + '\'' +
+                ", cId='" + cId + '\'' +
+                ", orderDate=" + orderDate +
+                ", orderTime=" + orderTime +
+                ", total=" + total +
+                ", discount=" + discount +
+                ", subTotal=" + subTotal +
+                '}';
+    }
 }

@@ -56,4 +56,14 @@ public class ItemDTO {
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
+
+    @Override
+    public String toString() {
+        return "ItemDTO{" +
+                "itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", qtyOnHand=" + qtyOnHand +
+                ", unitPrice=" + unitPrice +
+                '}';
+    }
 }

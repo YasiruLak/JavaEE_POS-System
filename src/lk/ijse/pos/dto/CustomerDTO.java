@@ -56,4 +56,14 @@ public class CustomerDTO {
     public void setCusContact(String cusContact) {
         this.cusContact = cusContact;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerDTO{" +
+                "cusId='" + cusId + '\'' +
+                ", cusName='" + cusName + '\'' +
+                ", cusAddress='" + cusAddress + '\'' +
+                ", cusContact='" + cusContact + '\'' +
+                '}';
+    }
 }
