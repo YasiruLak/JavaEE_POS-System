@@ -1,4 +1,4 @@
-package lk.ijse.pos.servlet;
+package lk.ijse.pos.controller;
 
 import javax.annotation.Resource;
 import javax.json.Json;
@@ -25,7 +25,7 @@ import java.sql.SQLException;
  * @since : 0.1.0
  **/
 @WebServlet(urlPatterns = "/order")
-public class OrderServlet extends HttpServlet {
+public class PlaceOrderServlet extends HttpServlet {
 
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;

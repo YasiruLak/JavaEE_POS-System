@@ -1,4 +1,4 @@
-package lk.ijse.pos.servlet;
+package lk.ijse.pos.controller;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -18,107 +18,103 @@ import java.sql.SQLException;
 /**
  * @author : Yasiru Dahanayaka
  * @name : JavaEE POS System
- * @date : 5/9/2022
+ * @date : 5/10/2022
  * @month : 05
  * @year : 2022
  * @since : 0.1.0
  **/
 
-@WebServlet (urlPatterns = "/customer")
-public class CustomerServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/item")
+public class ItemServlet extends HttpServlet {
 
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
 
-        String option = req.getParameter("option");
-        String customerID = req.getParameter("customerID");
-        resp.setContentType("application/json");
-        Connection connection = dataSource.getConnection();
-        PrintWriter writer = resp.getWriter();
+        try{
 
-        resp.addHeader("Access-Control-Allow-Origin", "*");
+            String option = req.getParameter("option");
+            String code = req.getParameter("itemCode");
+            resp.setContentType("application/json");
+            Connection connection = dataSource.getConnection();
+            PrintWriter writer = resp.getWriter();
 
-        switch (option){
-            case "SEARCH":
+            resp.addHeader("Access-Control-Allow-Origin", "*");
 
-                Connection connection1 = dataSource.getConnection();
-                PreparedStatement preparedStatement = connection1.prepareStatement("SELECT * FROM Customer where id=?");
-                preparedStatement.setObject(1,customerID);
-                ResultSet resultSet1 = preparedStatement.executeQuery();
-                JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+            switch (option){
+                case "SEARCH":
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Item where itemCode=?");
+                    preparedStatement.setObject(1,code);
+                    ResultSet resultSet1 = preparedStatement.executeQuery();
+                    JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
 
-                while (resultSet1.next()){
-                    String id = resultSet1.getString(1);
-                    String name = resultSet1.getString(2);
-                    String address = resultSet1.getString(3);
-                    String contact = resultSet1.getString(4);
+                    while (resultSet1.next()){
+                        String itemCode = resultSet1.getString(1);
+                        String name = resultSet1.getString(2);
+                        String qtyOnHand = resultSet1.getString(3);
+                        String price = resultSet1.getString(4);
 
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    objectBuilder.add("id", id);
-                    objectBuilder.add("name", name);
-                    objectBuilder.add("address", address);
-                    objectBuilder.add("contact", contact);
-                    arrayBuilder.add(objectBuilder.build());
-                }
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        objectBuilder.add("itemCode", itemCode);
+                        objectBuilder.add("name", name);
+                        objectBuilder.add("qtyOnHand", qtyOnHand);
+                        objectBuilder.add("price", price);
+                        arrayBuilder1.add(objectBuilder.build());
+                    }
 
-                JsonObjectBuilder response1 = Json.createObjectBuilder();
-                response1.add("status", 200);
-                response1.add("message", "Done");
-                response1.add("data", arrayBuilder.build());
-                writer.print(response1.build());
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", arrayBuilder1.build());
+                    writer.print(response.build());
+                    break;
 
-                break;
+                case "GETALL":
 
-            case "GETALL":
+                    ResultSet resultSet = connection.prepareStatement("SELECT * FROM Item").executeQuery();
+                    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
-                ResultSet resultSet = connection.prepareStatement("SELECT * FROM Customer").executeQuery();
-                JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
+                    while (resultSet.next()){
+                        String itemCode = resultSet.getString(1);
+                        String name = resultSet.getString(2);
+                        String qtyOnHand = resultSet.getString(3);
+                        String price = resultSet.getString(4);
 
-                while (resultSet.next()){
-                    String id = resultSet.getString(1);
-                    String name = resultSet.getString(2);
-                    String address = resultSet.getString(3);
-                    String contact = resultSet.getString(4);
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        objectBuilder.add("itemCode", itemCode);
+                        objectBuilder.add("name", name);
+                        objectBuilder.add("qtyOnHand", qtyOnHand);
+                        objectBuilder.add("price", price);
+                        arrayBuilder.add(objectBuilder.build());
+                    }
 
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    objectBuilder.add("id", id);
-                    objectBuilder.add("name", name);
-                    objectBuilder.add("address", address);
-                    objectBuilder.add("contact", contact);
-                    arrayBuilder1.add(objectBuilder.build());
-                }
+                    JsonObjectBuilder response1 = Json.createObjectBuilder();
+                    response1.add("status", 200);
+                    response1.add("message", "Done");
+                    response1.add("data", arrayBuilder.build());
+                    writer.print(response1.build());
 
-                JsonObjectBuilder response = Json.createObjectBuilder();
-                response.add("status", 200);
-                response.add("message", "Done");
-                response.add("data", arrayBuilder1.build());
-                writer.print(response.build());
+                    break;
+            }
 
-                break;
-
-
-
-        }
-
-        connection.close();
+            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String customerID = req.getParameter("customerID");
-        String customerName = req.getParameter("customerName");
-        String customerAddress = req.getParameter("customerAddress");
-        String customerContact = req.getParameter("customerContact");
+        String itemCode = req.getParameter("itemCode");
+        String itemName = req.getParameter("itemName");
+        String itemQuantity = req.getParameter("itemQuantity");
+        String itemPrice = req.getParameter("itemPrice");
 
         resp.addHeader("Access-Control-Allow-Origin", "*");
 
@@ -127,11 +123,11 @@ public class CustomerServlet extends HttpServlet {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
-            preparedStatement.setObject(1, customerID);
-            preparedStatement.setObject(2, customerName);
-            preparedStatement.setObject(3, customerAddress);
-            preparedStatement.setObject(4, customerContact);
+            PreparedStatement preparedStatement = connection.prepareStatement("Insert into Item values(?,?,?,?)");
+            preparedStatement.setObject(1, itemCode);
+            preparedStatement.setObject(2, itemName);
+            preparedStatement.setObject(3, itemQuantity);
+            preparedStatement.setObject(4, itemPrice);
 
             if (preparedStatement.executeUpdate() > 0){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -153,20 +149,21 @@ public class CustomerServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_OK);
             e.printStackTrace();
         }
+
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String customerID = req.getParameter("customerID");
+        String itemCode = req.getParameter("itemCode");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         resp.addHeader("Access-Control-Allow-Origin", "*");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("Delete from Customer where id=?");
-            preparedStatement.setObject(1, customerID);
+            PreparedStatement preparedStatement = connection.prepareStatement("Delete from Item where itemCode=?");
+            preparedStatement.setObject(1, itemCode);
 
             if (preparedStatement.executeUpdate() > 0){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -193,6 +190,7 @@ public class CustomerServlet extends HttpServlet {
             writer.print(objectBuilder.build());
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -200,10 +198,10 @@ public class CustomerServlet extends HttpServlet {
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String customerID = jsonObject.getString("id");
-        String customerName = jsonObject.getString("name");
-        String customerAddress = jsonObject.getString("address");
-        String customerContact = jsonObject.getString("contact");
+        String itemCode = jsonObject.getString("itemCode");
+        String itemName = jsonObject.getString("itemName");
+        String itemQty = jsonObject.getString("itemQty");
+        String itemPrice = jsonObject.getString("itemPrice");
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("Application/json");
@@ -212,11 +210,11 @@ public class CustomerServlet extends HttpServlet {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Customer SET name=?,address=?,contact=? WHERE id=?");
-            preparedStatement.setObject(1,customerName);
-            preparedStatement.setObject(2,customerAddress);
-            preparedStatement.setObject(3,customerContact);
-            preparedStatement.setObject(4,customerID);
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Item SET name=?,qtyOnHand=?,price=? WHERE itemCode=?");
+            preparedStatement.setObject(1,itemName);
+            preparedStatement.setObject(2,itemQty);
+            preparedStatement.setObject(3,itemPrice);
+            preparedStatement.setObject(4,itemCode);
 
             if (preparedStatement.executeUpdate() > 0){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -242,5 +240,6 @@ public class CustomerServlet extends HttpServlet {
             writer.print(objectBuilder.build());
             e.printStackTrace();
         }
+
     }
 }

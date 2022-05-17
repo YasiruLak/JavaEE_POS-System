@@ -154,6 +154,8 @@ $("#btnAddToCart").click(function () {
         loadOrderDetail();
         minusQty($("#txtQty").val());
         manageTotal($("#txtQty").val() * $("#txtOrderItemPrice").val());
+        manageDiscount();
+        itemTextFieldClear();
 
     }else if (duplicate == true){
         manageQuantity(tableRow.children(':nth-child(4)').text(),$("#txtQty").val());
@@ -208,9 +210,7 @@ function loadOrderDetail() {
     itemQtyOnHand = $("#txtOrderItemQtyOnHand").val();
     itemOrderQty = $("#txtQty").val();
 
-    let total;
-
-    total = itemPrice * itemOrderQty;
+    let total = itemPrice * itemOrderQty;
 
     $("#addToCartTable").append("<tr>" +
         "<td>" + itemCode + "</td>" +
@@ -219,6 +219,8 @@ function loadOrderDetail() {
         "<td>" + itemOrderQty + "</td>" +
         "<td>" + total + "</td>" +
         "</tr>");
+
+    manageDiscount();
 }
 
 function minusQty(orderQty){
@@ -232,8 +234,10 @@ function minusQty(orderQty){
 
 var total = 0;
 function manageTotal(amount){
-    total = amount;
+    total += amount;
     $("#total").text(total);
+
+    manageDiscount();
 }
 
 function updateManageTotal(prvTotal,nowTotal) {
@@ -241,6 +245,8 @@ function updateManageTotal(prvTotal,nowTotal) {
     total += nowTotal;
 
     $("#total").text(total);
+
+    manageDiscount();
 }
 
 function manageQuantity(prevQty,nowQty){
@@ -252,4 +258,63 @@ function manageQuantity(prevQty,nowQty){
     availableQty -= nowQty;
 
     $("#txtOrderItemQtyOnHand").val(availableQty);
+}
+
+function manageDiscount(){
+    var net = $("#total").text();
+    var discount = 0;
+
+    if (net > 500 && net < 999){
+        discount = 2;
+        $("#txtDiscount").val(discount);
+    }else if (net > 1000 && net < 2999){
+        discount = 4;
+        $("#txtDiscount").val(discount);
+    }else if (net > 3000 && net < 4999){
+        discount = 5;
+        $("#txtDiscount").val(discount);
+    }else if (net > 5000 && net < 9999){
+        discount = 8;
+        $("#txtDiscount").val(discount);
+    }else if (net > 10000){
+        discount = 10;
+        $("#txtDiscount").val(discount);
+    }
+
+    var subTotal = (net * discount)/100;
+    subTotal = net - subTotal;
+    $("#subtotal").text(subTotal);
+
+
+}
+
+$("#btnSubmitOrder").click(function (){
+    manageBalance();
+    itemTextFieldClear();
+    customerTextFieldClear();
+})
+
+function manageBalance(){
+    let balance = 0;
+    let subtotal = $("#subtotal").text();
+    let cash = $("#txtCash").val();
+
+    balance = cash - subtotal;
+
+    $("#txtBalance").val(balance);
+}
+
+function itemTextFieldClear(){
+    loadItemComboBoxData();
+    $("#txtOrderItemQtyOnHand").val("");
+    $("#txtOrderItemPrice").val("");
+    $("#txtOrderItemName").val("");
+    $("#txtQty").val("");
+}
+
+function customerTextFieldClear(){
+    loadCustomerComboBoxData();
+    $("#txtOrderCusName").val("");
+    $("#txtOrderCusContact").val("");
+    $("#txtOrderCusAddress").val("");
 }
