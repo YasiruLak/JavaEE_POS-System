@@ -1,7 +1,7 @@
 package lk.ijse.pos.dao.custom;
 
 import lk.ijse.pos.dao.CrudDAO;
-import lk.ijse.pos.entity.Customer;
+import lk.ijse.pos.entity.Item;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -11,5 +11,5 @@ import lk.ijse.pos.entity.Customer;
  * @year : 2022
  * @since : 0.1.0
  **/
-public interface CustomerDAO extends CrudDAO<Customer, String> {
+public interface ItemDAO extends CrudDAO<Item, String> {
 }

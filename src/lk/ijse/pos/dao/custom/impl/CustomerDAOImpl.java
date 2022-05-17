@@ -1,5 +1,7 @@
 package lk.ijse.pos.dao.custom.impl;
 
+import lk.ijse.pos.dao.custom.CustomerDAO;
+
 /**
  * @author : Yasiru Dahanayaka
  * @name : JavaEE POS System
@@ -8,5 +10,5 @@ package lk.ijse.pos.dao.custom.impl;
  * @year : 2022
  * @since : 0.1.0
  **/
-public class CustomerDAOImpl {
+public class CustomerDAOImpl implements CustomerDAO {
 }
