@@ -1,29 +1,30 @@
-// function generateOrderID() {
-//     $("#txtOrderID").val("O00-0001");
-//     $.ajax({
-//         url: "order",
-//         method: "GET",
-//         success: function (resp) {
-//             for (const orders of resp.data){
-//                 let orderId = orders.oId;
-//                 let tempId = parseInt(orderId.split("-")[1]);
-//                 tempId = tempId+1;
-//                 if (tempId <= 9){
-//                     $("#txtOrderID").val("O00-000"+tempId);
-//                 }else if (tempId <= 99) {
-//                     $("#txtOrderID").val("O00-00" + tempId);
-//                 }else if (tempId <= 999){
-//                     $("#txtOrderID").val("O00-0" + tempId);
-//                 }else {
-//                     $("#txtOrderID").val("O00-"+tempId);
-//                 }
-//             }
-//
-//         }
-//     });
-// }
-//
-// generateOrderID();
+function generateOrderID() {
+    $("#txtOrderID").val("O00-0001");
+    $.ajax({
+        url: "order",
+        method: "GET",
+        success: function (resp) {
+            for (const orders of resp.data){
+                let orderId = orders.orderId;
+                let tempId = parseInt(orderId.split("-")[1]);
+                tempId = tempId+1;
+                if (tempId <= 9){
+                    $("#txtOrderID").val("O00-000"+tempId);
+                }else if (tempId <= 99) {
+                    $("#txtOrderID").val("O00-00" + tempId);
+                }else if (tempId <= 999){
+                    $("#txtOrderID").val("O00-0" + tempId);
+                }else {
+                    $("#txtOrderID").val("O00-"+tempId);
+                }
+
+            }
+
+        }
+    });
+}
+
+generateOrderID();
 
 function setCurrentDate() {
     let orderDate = $('#txtOrderDate');
