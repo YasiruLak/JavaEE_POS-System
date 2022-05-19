@@ -48,36 +48,20 @@ public class CustomerServlet extends HttpServlet {
         Connection connection = dataSource.getConnection();
         PrintWriter writer = resp.getWriter();
 
-        resp.addHeader("Access-Control-Allow-Origin", "*");
+        Connection connection1 = dataSource.getConnection();
 
         switch (option){
             case "SEARCH":
 
-                Connection connection1 = dataSource.getConnection();
-                PreparedStatement preparedStatement = connection1.prepareStatement("SELECT * FROM Customer where id=?");
-                preparedStatement.setObject(1,customerID);
-                ResultSet resultSet1 = preparedStatement.executeQuery();
-                JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+                CustomerDTO customer = customerBO.searchCustomer(customerID, connection);
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
-                while (resultSet1.next()){
-                    String id = resultSet1.getString(1);
-                    String name = resultSet1.getString(2);
-                    String address = resultSet1.getString(3);
-                    String contact = resultSet1.getString(4);
+                objectBuilder.add("id", customer.getCusId());
+                objectBuilder.add("name", customer.getCusName());
+                objectBuilder.add("address", customer.getCusAddress());
+                objectBuilder.add("contact", customer.getCusContact());
 
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    objectBuilder.add("id", id);
-                    objectBuilder.add("name", name);
-                    objectBuilder.add("address", address);
-                    objectBuilder.add("contact", contact);
-                    arrayBuilder.add(objectBuilder.build());
-                }
-
-                JsonObjectBuilder response1 = Json.createObjectBuilder();
-                response1.add("status", 200);
-                response1.add("message", "Done");
-                response1.add("data", arrayBuilder.build());
-                writer.print(response1.build());
+                writer.print(objectBuilder.build());
 
                 break;
 
@@ -88,20 +72,20 @@ public class CustomerServlet extends HttpServlet {
 
                 for (CustomerDTO cust : allCustomers){
 
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    objectBuilder.add("id", cust.getCusId());
-                    objectBuilder.add("name", cust.getCusName());
-                    objectBuilder.add("address", cust.getCusAddress());
-                    objectBuilder.add("contact", cust.getCusContact());
-                    arrayBuilder1.add(objectBuilder.build());
+                    JsonObjectBuilder objectBuilder1 = Json.createObjectBuilder();
+                    objectBuilder1.add("id", cust.getCusId());
+                    objectBuilder1.add("name", cust.getCusName());
+                    objectBuilder1.add("address", cust.getCusAddress());
+                    objectBuilder1.add("contact", cust.getCusContact());
+                    arrayBuilder1.add(objectBuilder1.build());
 
                 }
 
-                JsonObjectBuilder response = Json.createObjectBuilder();
-                response.add("status", 200);
-                response.add("message", "Done");
-                response.add("data", arrayBuilder1.build());
-                writer.print(response.build());
+                JsonObjectBuilder response1 = Json.createObjectBuilder();
+                response1.add("status", 200);
+                response1.add("message", "Done");
+                response1.add("data", arrayBuilder1.build());
+                writer.print(response1.build());
 
                 break;
         }

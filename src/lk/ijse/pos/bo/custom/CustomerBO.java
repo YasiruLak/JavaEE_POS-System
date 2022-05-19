@@ -21,5 +21,7 @@ public interface CustomerBO extends SuperBO {
 
     ObservableList<CustomerDTO> getAllCustomer(Connection connection) throws SQLException, ClassNotFoundException;
 
+    CustomerDTO searchCustomer(String id, Connection connection) throws SQLException, ClassNotFoundException;
+
 
 }

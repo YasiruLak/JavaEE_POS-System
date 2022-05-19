@@ -139,10 +139,9 @@ $("#btnSearchCustomer").click(function () {
         url: "customer?option=SEARCH&customerID=" + customerID,
         method: "GET",
         success: function (resp) {
-            for (const customer of resp.data) {
-                let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.contact}</td></tr>`;
+
+                let row = `<tr><td>${resp.id}</td><td>${resp.name}</td><td>${resp.address}</td><td>${resp.contact}</td></tr>`;
                 $("#customerTable").append(row);
-            }
 
             bindClickEvents();
         }
