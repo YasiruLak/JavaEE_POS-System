@@ -24,7 +24,7 @@ import java.sql.SQLException;
  * @year : 2022
  * @since : 0.1.0
  **/
-@WebServlet(urlPatterns = "/order")
+@WebServlet(urlPatterns = "/orders")
 public class PlaceOrderServlet extends HttpServlet {
 
     @Resource(name = "java:comp/env/jdbc/pool")

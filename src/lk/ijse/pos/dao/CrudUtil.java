@@ -8,5 +8,5 @@ package lk.ijse.pos.dao;
  * @year : 2022
  * @since : 0.1.0
  **/
-public class CrudUtill {
+public class CrudUtil {
 }

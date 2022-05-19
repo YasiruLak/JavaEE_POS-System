@@ -305,12 +305,27 @@ function manageDiscount() {
 
 }
 
-$("#btnSubmitOrder").click(function () {
-    manageBalance();
-    itemTextFieldClear();
-    customerTextFieldClear();
-    $("#addToCartTable").empty();
-})
+// $("#btnSubmitOrder").click(function () {
+//
+//     let data;
+//
+//     if ($("#txtCash").val() == '') {
+//         alert("Please Enter Cash");
+//     }else {
+//
+//         $.ajax({
+//             url: "orders",
+//             method: "GET",
+//             data: data,
+//         });
+//
+//         manageBalance();
+//         itemTextFieldClear();
+//         customerTextFieldClear();
+//         $("#addToCartTable").empty();
+//
+//     }
+// });
 
 function manageBalance() {
     let balance = 0;
@@ -337,17 +352,5 @@ function customerTextFieldClear() {
     $("#txtOrderCusAddress").val("");
 }
 
-// setButton();
 
-// function setButton() {
-//     if ($("#txtOrderCusAddress").val() != '') {
-//         $("#btnAddToCart").attr('disabled', false);
-//     } else if ($("#txtOrderItemName").val() != '') {
-//         $("#btnAddToCart").attr('disabled', false);
-//     } else if ($("#txtQty").val() != '') {
-//         $("#btnAddToCart").attr('disabled', false);
-//     } else {
-//         $("#btnAddToCart").attr('disabled', true);
-//     }
-// }
 
