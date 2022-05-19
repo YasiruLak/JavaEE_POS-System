@@ -28,19 +28,20 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+    public boolean delete(String s, Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(Customer customer) throws SQLException, ClassNotFoundException {
+    public boolean update(Customer customer, Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public Customer search(String s) throws SQLException, ClassNotFoundException {
+    public Customer search(String s, Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
+
 
     @Override
     public ObservableList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException {

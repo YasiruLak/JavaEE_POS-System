@@ -1,5 +1,7 @@
 package lk.ijse.pos.bo.custom.impl;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.dao.DAOFactory;
 import lk.ijse.pos.dao.custom.CustomerDAO;
@@ -29,4 +31,23 @@ public class CustomerBOImpl implements CustomerBO {
         );
         return customerDAO.add(customer,connection);
     }
+
+    @Override
+    public ObservableList<CustomerDTO> getAllCustomer(Connection connection) throws SQLException, ClassNotFoundException {
+        ObservableList<Customer> customers = customerDAO.getAll(connection);
+
+        ObservableList<CustomerDTO> obList = FXCollections.observableArrayList();
+
+        for (Customer temp : customers) {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    temp.getId(),temp.getName(),temp.getAddress(),temp.getContact()
+            );
+
+            obList.add(customerDTO);
+        }
+        return obList;
+
+    }
+
+
 }

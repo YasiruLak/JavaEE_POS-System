@@ -1,8 +1,10 @@
 package lk.ijse.pos.controller;
 
+import javafx.collections.ObservableList;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.entity.Customer;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -81,21 +83,18 @@ public class CustomerServlet extends HttpServlet {
 
             case "GETALL":
 
-                ResultSet resultSet = connection.prepareStatement("SELECT * FROM Customer").executeQuery();
+                ObservableList<CustomerDTO> allCustomers = customerBO.getAllCustomer(connection);
                 JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
 
-                while (resultSet.next()){
-                    String id = resultSet.getString(1);
-                    String name = resultSet.getString(2);
-                    String address = resultSet.getString(3);
-                    String contact = resultSet.getString(4);
+                for (CustomerDTO cust : allCustomers){
 
                     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    objectBuilder.add("id", id);
-                    objectBuilder.add("name", name);
-                    objectBuilder.add("address", address);
-                    objectBuilder.add("contact", contact);
+                    objectBuilder.add("id", cust.getCusId());
+                    objectBuilder.add("name", cust.getCusName());
+                    objectBuilder.add("address", cust.getCusAddress());
+                    objectBuilder.add("contact", cust.getCusContact());
                     arrayBuilder1.add(objectBuilder.build());
+
                 }
 
                 JsonObjectBuilder response = Json.createObjectBuilder();
@@ -105,12 +104,11 @@ public class CustomerServlet extends HttpServlet {
                 writer.print(response.build());
 
                 break;
-
         }
 
         connection.close();
 
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
