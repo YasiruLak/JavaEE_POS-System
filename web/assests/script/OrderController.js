@@ -109,7 +109,7 @@ $("#txtOrderCusID").click(function () {
             }
         }
     });
-    setButton();
+
 
 });
 
@@ -139,7 +139,7 @@ $("#txtOrderItemCode").click(function () {
             }
         }
     });
-    // setButton();
+
 });
 
 var tableRow;

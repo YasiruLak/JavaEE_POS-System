@@ -1,13 +1,12 @@
 package lk.ijse.pos.dao.custom.impl;
 
-import com.mysql.cj.xdevapi.JsonArray;
-import lk.ijse.pos.dao.CrudDAO;
-import lk.ijse.pos.dao.SuperDAO;
+import javafx.collections.ObservableList;
 import lk.ijse.pos.dao.custom.ItemDAO;
+import lk.ijse.pos.entity.Customer;
 import lk.ijse.pos.entity.Item;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -18,8 +17,10 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 public class ItemDAOImpl implements ItemDAO {
+
+
     @Override
-    public boolean add(Item item) throws SQLException, ClassNotFoundException {
+    public boolean add(Item item, Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -39,9 +40,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public JsonArray getAll() throws SQLException, ClassNotFoundException {
+    public ObservableList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
-
-
 }

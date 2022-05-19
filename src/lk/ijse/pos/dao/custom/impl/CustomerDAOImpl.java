@@ -1,11 +1,14 @@
 package lk.ijse.pos.dao.custom.impl;
 
-import com.mysql.cj.xdevapi.JsonArray;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import lk.ijse.pos.dao.CrudUtil;
 import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.entity.Customer;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -16,9 +19,12 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 public class CustomerDAOImpl implements CustomerDAO {
+
+
     @Override
-    public boolean add(Customer customer) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean add(Customer customer, Connection connection) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"INSERT INTO Customer VALUES(?,?,?,?)",customer.getId(),
+                customer.getName(),customer.getAddress(),customer.getContact());
     }
 
     @Override
@@ -37,8 +43,22 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public JsonArray getAll() throws SQLException, ClassNotFoundException {
-        return null;
-    }
+    public ObservableList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM Customer");
 
+        ObservableList<Customer> obList = FXCollections.observableArrayList();
+
+        while (resultSet.next()) {
+            Customer customer = new Customer(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4)
+            );
+
+            obList.add(customer);
+        }
+
+        return obList;
+    }
 }

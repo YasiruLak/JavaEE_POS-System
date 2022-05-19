@@ -1,5 +1,9 @@
 package lk.ijse.pos.controller;
 
+import lk.ijse.pos.bo.BOFactory;
+import lk.ijse.pos.bo.custom.CustomerBO;
+import lk.ijse.pos.dto.CustomerDTO;
+
 import javax.annotation.Resource;
 import javax.json.*;
 import javax.servlet.ServletException;
@@ -29,6 +33,8 @@ public class CustomerServlet extends HttpServlet {
 
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;
+
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -100,8 +106,6 @@ public class CustomerServlet extends HttpServlet {
 
                 break;
 
-
-
         }
 
         connection.close();
@@ -115,31 +119,40 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String customerID = req.getParameter("customerID");
-        String customerName = req.getParameter("customerName");
-        String customerAddress = req.getParameter("customerAddress");
-        String customerContact = req.getParameter("customerContact");
-
-        resp.addHeader("Access-Control-Allow-Origin", "*");
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
-            preparedStatement.setObject(1, customerID);
-            preparedStatement.setObject(2, customerName);
-            preparedStatement.setObject(3, customerAddress);
-            preparedStatement.setObject(4, customerContact);
+        Connection connection = null;
 
-            if (preparedStatement.executeUpdate() > 0){
+        try {
+            connection = dataSource.getConnection();
+
+            CustomerDTO customerDTO = new CustomerDTO(
+                    req.getParameter("customerID"),
+                    req.getParameter("customerName"),
+                    req.getParameter("customerAddress"),
+                    req.getParameter("customerContact")
+            );
+
+            try {
+                if (customerBO.addCustomer(connection, customerDTO)){
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_CREATED);
+                    objectBuilder.add("status", 200);
+                    objectBuilder.add("message", "Successfully Added");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                }
+            } catch (ClassNotFoundException e) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_CREATED);
-                objectBuilder.add("status", 200);
-                objectBuilder.add("message", "Successfully Added");
-                objectBuilder.add("data", "");
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Error");
+                objectBuilder.add("data", e.getLocalizedMessage());
                 writer.print(objectBuilder.build());
+                resp.setStatus(HttpServletResponse.SC_OK);
+                e.printStackTrace();
+                e.printStackTrace();
             }
 
             connection.close();

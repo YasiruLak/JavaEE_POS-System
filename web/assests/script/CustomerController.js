@@ -15,17 +15,19 @@ $("#btnSaveCustomer").click(function () {
     }else if ($("#txtCusContact").val() == '') {
         alert("Can not be Customer Contact empty");
     }else{
-
+        console.log(data);
         $.ajax({
             url: "customer",
             method: "POST",
             data: data,
             success: function (res) {
+                console.log(res);
                 if (res.status == 200) {
                     loadAllCustomer();
                     alert(res.message);
                     resetCustomer();
                 } else {
+                    console.log(res)
                     alert(res.data);
                 }
             },

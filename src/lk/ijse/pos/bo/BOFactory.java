@@ -19,7 +19,7 @@ public class BOFactory {
 
     }
 
-    private static BOFactory getBoFactory(){
+    public static BOFactory getBoFactory(){
         if (boFactory == null){
             boFactory = new BOFactory();
         }

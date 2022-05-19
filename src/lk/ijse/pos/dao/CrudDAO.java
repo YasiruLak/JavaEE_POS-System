@@ -1,9 +1,10 @@
 package lk.ijse.pos.dao;
 
-import com.mysql.cj.xdevapi.JsonArray;
+import javafx.collections.ObservableList;
+import lk.ijse.pos.entity.Customer;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  **/
 public interface CrudDAO <T, ID>extends SuperDAO{
 
-    boolean add(T t) throws SQLException, ClassNotFoundException;
+    boolean add(T t, Connection connection) throws SQLException, ClassNotFoundException;
 
     boolean delete(ID id) throws SQLException, ClassNotFoundException;
 
@@ -23,5 +24,5 @@ public interface CrudDAO <T, ID>extends SuperDAO{
 
     T search(ID id) throws SQLException, ClassNotFoundException;
 
-    JsonArray getAll() throws SQLException, ClassNotFoundException;
+    ObservableList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException;
 }

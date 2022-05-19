@@ -1,6 +1,10 @@
 package lk.ijse.pos.bo.custom;
 
 import lk.ijse.pos.bo.SuperBO;
+import lk.ijse.pos.dto.CustomerDTO;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -11,4 +15,6 @@ import lk.ijse.pos.bo.SuperBO;
  * @since : 0.1.0
  **/
 public interface CustomerBO extends SuperBO {
+
+    boolean addCustomer(Connection connection, CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
 }
