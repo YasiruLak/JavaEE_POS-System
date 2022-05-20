@@ -2,6 +2,7 @@ package lk.ijse.pos.dao.custom.impl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.pos.dao.CrudDAO;
 import lk.ijse.pos.dao.CrudUtil;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.entity.Customer;
@@ -39,8 +40,18 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item search(String s, Connection connection) throws SQLException, ClassNotFoundException {
-        return null;
+    public Item search(String code, Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM Item WHERE itemCode =?", code);
+        if (resultSet.next()){
+            return new Item(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getDouble(4)
+            );
+        }else {
+            return null;
+        }
     }
 
     @Override

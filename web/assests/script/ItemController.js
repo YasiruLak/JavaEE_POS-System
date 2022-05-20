@@ -155,10 +155,9 @@ $("#btnItemSearch").click(function (){
         url:"item?option=SEARCH&itemCode=" + itemCode,
         method:"GET",
         success:function (resp){
-            for (const item of resp.data){
-                let row = `<tr><td>${item.itemCode}</td><td>${item.name}</td><td>${item.qtyOnHand}</td><td>${item.price}</td></tr>`;
+                let row = `<tr><td>${resp.itemCode}</td><td>${resp.name}</td><td>${resp.qtyOnHand}</td><td>${resp.price}</td></tr>`;
                 $("#itemToTable").append(row);
-            }
+
             bindClickEvent();
         }
     });

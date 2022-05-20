@@ -48,13 +48,18 @@ public class ItemServlet extends HttpServlet {
             Connection connection = dataSource.getConnection();
             PrintWriter writer = resp.getWriter();
 
-            resp.addHeader("Access-Control-Allow-Origin", "*");
-
             switch (option){
                 case "SEARCH":
 
                     ItemDTO itemDTO1 = itemBO.searchItem(code, connection);
                     JsonObjectBuilder objectBuilder1 = Json.createObjectBuilder();
+
+                    objectBuilder1.add("itemCode", itemDTO1.getItemCode());
+                    objectBuilder1.add("name", itemDTO1.getItemName());
+                    objectBuilder1.add("qtyOnHand", itemDTO1.getQtyOnHand());
+                    objectBuilder1.add("price", itemDTO1.getUnitPrice());
+
+                    writer.print(objectBuilder1.build());
 
                     break;
 

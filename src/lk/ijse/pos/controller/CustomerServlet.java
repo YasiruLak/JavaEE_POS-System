@@ -48,7 +48,6 @@ public class CustomerServlet extends HttpServlet {
         Connection connection = dataSource.getConnection();
         PrintWriter writer = resp.getWriter();
 
-        Connection connection1 = dataSource.getConnection();
 
         switch (option){
             case "SEARCH":
