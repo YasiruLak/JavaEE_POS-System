@@ -45,7 +45,7 @@ public class OrderBOImpl implements OrderBO {
 
         connection1 = dataSource.getConnection();
 
-        boolean orderAvailable = orderDAO.ifOrderExist(ordersDTO.getOrderId());
+        boolean orderAvailable = orderDAO.ifOrderExist(ordersDTO.getOrderId(), connection);
         if (orderAvailable) {
             return false;
         }
@@ -98,17 +98,19 @@ public class OrderBOImpl implements OrderBO {
     }
 
     @Override
-    public String generateNewOrderId() throws SQLException, ClassNotFoundException {
+    public String generateNewOrderId(Connection connection) throws SQLException, ClassNotFoundException {
+        return orderDAO.generateNewOrderId(connection);
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> getAllCustomers(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
+    public ArrayList<ItemDTO> getAllItems(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 
-    @Override
-    public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
-        return null;
-    }
+
 }

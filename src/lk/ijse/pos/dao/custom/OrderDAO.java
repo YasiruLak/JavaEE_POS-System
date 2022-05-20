@@ -3,6 +3,7 @@ package lk.ijse.pos.dao.custom;
 import lk.ijse.pos.dao.CrudDAO;
 import lk.ijse.pos.entity.Orders;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -15,7 +16,7 @@ import java.sql.SQLException;
  **/
 public interface OrderDAO extends CrudDAO<Orders, String> {
 
-    boolean ifOrderExist(String oid) throws SQLException, ClassNotFoundException;
+    boolean ifOrderExist(String oid, Connection connection) throws SQLException, ClassNotFoundException;
 
-    String generateNewOrderId() throws SQLException, ClassNotFoundException;
+    String generateNewOrderId(Connection connection) throws SQLException, ClassNotFoundException;
 }

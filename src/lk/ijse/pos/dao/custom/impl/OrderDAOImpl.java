@@ -7,6 +7,7 @@ import lk.ijse.pos.entity.Customer;
 import lk.ijse.pos.entity.Orders;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -47,12 +48,13 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean ifOrderExist(String oid) throws SQLException, ClassNotFoundException {
+    public boolean ifOrderExist(String oid, Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public String generateNewOrderId() throws SQLException, ClassNotFoundException {
-        return null;
+    public String generateNewOrderId(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1;");
+        return resultSet.next() ? String.format("OD%03d", (Integer.parseInt(resultSet.getString("orderId").replace("OD", "")) + 1)) : "OD001";
     }
 }
