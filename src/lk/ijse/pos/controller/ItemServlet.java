@@ -196,25 +196,21 @@ public class ItemServlet extends HttpServlet {
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String itemCode = jsonObject.getString("itemCode");
-        String itemName = jsonObject.getString("itemName");
-        String itemQty = jsonObject.getString("itemQty");
-        String itemPrice = jsonObject.getString("itemPrice");
+
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("Application/json");
 
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Item SET name=?,qtyOnHand=?,price=? WHERE itemCode=?");
-            preparedStatement.setObject(1,itemName);
-            preparedStatement.setObject(2,itemQty);
-            preparedStatement.setObject(3,itemPrice);
-            preparedStatement.setObject(4,itemCode);
+            ItemDTO itemDTO = new ItemDTO(
+                    jsonObject.getString("itemCode"),
+                    jsonObject.getString("itemName"),
+                    Integer.parseInt(jsonObject.getString("itemQty")),
+                    Double.parseDouble(jsonObject.getString("itemPrice"))
+            );
 
-            if (preparedStatement.executeUpdate() > 0){
+            if (itemBO.updateItem(connection, itemDTO)){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("status", 200);
                 objectBuilder.add("message", "Successfully Updated");
@@ -231,6 +227,16 @@ public class ItemServlet extends HttpServlet {
             connection.close();
 
         } catch (SQLException e) {
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Update Failed");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("status", 500);
             objectBuilder.add("message", "Update Failed");

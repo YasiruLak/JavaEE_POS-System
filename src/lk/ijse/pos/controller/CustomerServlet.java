@@ -204,8 +204,6 @@ public class CustomerServlet extends HttpServlet {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
 
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-
         try {
             Connection connection = dataSource.getConnection();
 

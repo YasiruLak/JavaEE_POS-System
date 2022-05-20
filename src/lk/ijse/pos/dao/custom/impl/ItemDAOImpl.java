@@ -30,13 +30,14 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean delete(String s, Connection connection) throws SQLException, ClassNotFoundException {
+    public boolean delete(String code, Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
     public boolean update(Item item, Connection connection) throws SQLException, ClassNotFoundException {
-        return false;
+        return CrudUtil.executeUpdate(connection, "UPDATE Item SET name=?,qtyOnHand=?,price=? WHERE itemCode=?", item.getName(),
+                item.getQtyOnHand(), item.getPrice(), item.getItemCode());
     }
 
     @Override
