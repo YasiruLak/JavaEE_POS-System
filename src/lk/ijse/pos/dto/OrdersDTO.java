@@ -2,6 +2,7 @@ package lk.ijse.pos.dto;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -20,11 +21,12 @@ public class OrdersDTO {
     private double total;
     private double discount;
     private double subTotal;
+    private List<OrderDetailsDTO> orderDetail;
 
     public OrdersDTO() {
     }
 
-    public OrdersDTO(String orderId, String cId, Date orderDate, Time orderTime, double total, double discount, double subTotal) {
+    public OrdersDTO(String orderId, String cId, Date orderDate, Time orderTime, double total, double discount, double subTotal, List<OrderDetailsDTO> orderDetail) {
         this.orderId = orderId;
         this.cId = cId;
         this.orderDate = orderDate;
@@ -32,6 +34,7 @@ public class OrdersDTO {
         this.total = total;
         this.discount = discount;
         this.subTotal = subTotal;
+        this.orderDetail = orderDetail;
     }
 
     public String getOrderId() {
@@ -88,6 +91,14 @@ public class OrdersDTO {
 
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
+    }
+
+    public List<OrderDetailsDTO> getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(List<OrderDetailsDTO> orderDetail) {
+        this.orderDetail = orderDetail;
     }
 
     @Override

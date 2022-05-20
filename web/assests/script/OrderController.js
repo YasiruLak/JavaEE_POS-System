@@ -305,27 +305,36 @@ function manageDiscount() {
 
 }
 
-// $("#btnSubmitOrder").click(function () {
-//
-//     let data;
-//
-//     if ($("#txtCash").val() == '') {
-//         alert("Please Enter Cash");
-//     }else {
-//
-//         $.ajax({
-//             url: "orders",
-//             method: "GET",
-//             data: data,
-//         });
-//
-//         manageBalance();
-//         itemTextFieldClear();
-//         customerTextFieldClear();
-//         $("#addToCartTable").empty();
-//
-//     }
-// });
+$("#btnSubmitOrder").click(function () {
+
+    var discount = $("#total").val() - $("#subtotal").val();
+
+    var orderOb = {
+        orderID:$("#txtOrderItemCode").val(),
+        cId:$("#txtOrderCusID").val(),
+        orderDate:$("#txtOrderDate").val(),
+        total:$("#total").val(),
+        discount:discount,
+        subTotal:$("#subtotal").val()
+    };
+
+    if ($("#txtCash").val() == '') {
+        alert("Please Enter Cash");
+    }else {
+        $.ajax({
+            url: "orders",
+            method: "GET",
+            contentType: "application/json",
+            data: JSON.stringify(orderOb),
+        });
+
+        manageBalance();
+        itemTextFieldClear();
+        customerTextFieldClear();
+        $("#addToCartTable").empty();
+
+    }
+});
 
 function manageBalance() {
     let balance = 0;

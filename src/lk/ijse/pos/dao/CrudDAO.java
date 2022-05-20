@@ -24,5 +24,5 @@ public interface CrudDAO <T, ID>extends SuperDAO{
 
     T search(ID id, Connection connection) throws SQLException, ClassNotFoundException;
 
-    ObservableList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException;
+    ObservableList<T> getAll(Connection connection) throws SQLException, ClassNotFoundException;
 }

@@ -12,13 +12,13 @@ public class OrderDetailsDTO {
 
     private String oId;
     private String iCode;
-    private double oQty;
+    private int oQty;
     private double price;
 
     public OrderDetailsDTO() {
     }
 
-    public OrderDetailsDTO(String oId, String iCode, double oQty, double price) {
+    public OrderDetailsDTO(String oId, String iCode, int oQty, double price) {
         this.oId = oId;
         this.iCode = iCode;
         this.oQty = oQty;
@@ -41,11 +41,11 @@ public class OrderDetailsDTO {
         this.iCode = iCode;
     }
 
-    public double getoQty() {
+    public int getoQty() {
         return oQty;
     }
 
-    public void setoQty(double oQty) {
+    public void setoQty(int oQty) {
         this.oQty = oQty;
     }
 

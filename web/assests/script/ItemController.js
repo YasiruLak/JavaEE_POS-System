@@ -1,7 +1,12 @@
 loadAllItem();
 
 $("#btnItemSave").click(function (){
-    let data = $("#itemForm").serialize();
+    let itemOb = {
+        "itemCode": $("#txtItemCode").val(),
+        "itemName": $("#txtItemName").val(),
+        "itemQty": $("#txtItemQuantity").val(),
+        "itemPrice": $("#txtItemUnitPrice").val()
+    };
 
     if ($("#txtItemCode").val() == '') {
         alert("Can not be Item Code empty");
@@ -15,7 +20,8 @@ $("#btnItemSave").click(function (){
         $.ajax({
             url:"item",
             method:"POST",
-            data:data,
+            contentType: "application/json",
+            data: JSON.stringify(itemOb),
             success: function (res){
                 if (res.status == 200){
                     loadAllItem();

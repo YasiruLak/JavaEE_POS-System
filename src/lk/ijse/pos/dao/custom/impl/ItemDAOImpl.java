@@ -1,11 +1,14 @@
 package lk.ijse.pos.dao.custom.impl;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lk.ijse.pos.dao.CrudUtil;
 import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.entity.Customer;
 import lk.ijse.pos.entity.Item;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -21,7 +24,8 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean add(Item item, Connection connection) throws SQLException, ClassNotFoundException {
-        return false;
+        return CrudUtil.executeUpdate(connection, "Insert into Item values(?,?,?,?)",item.getItemCode(),
+                item.getName(),item.getQtyOnHand(),item.getPrice());
     }
 
     @Override
@@ -40,7 +44,23 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public ObservableList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException {
-        return null;
+    public ObservableList<Item> getAll(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM Item");
+
+        ObservableList<Item> obList = FXCollections.observableArrayList();
+
+        while (resultSet.next()){
+            Item item = new Item(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getDouble(4)
+            );
+
+            obList.add(item);
+
+        }
+
+        return obList;
     }
 }

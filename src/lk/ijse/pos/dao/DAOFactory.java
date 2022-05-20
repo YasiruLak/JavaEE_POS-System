@@ -2,6 +2,8 @@ package lk.ijse.pos.dao;
 
 import lk.ijse.pos.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.pos.dao.custom.impl.ItemDAOImpl;
+import lk.ijse.pos.dao.custom.impl.OrderDAOImpl;
+import lk.ijse.pos.dao.custom.impl.OrderDetailsDAOImpl;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -33,6 +35,10 @@ public class DAOFactory {
                 return new ItemDAOImpl();
             case CUSTOMER:
                 return new CustomerDAOImpl();
+            case ORDERS:
+                return new OrderDAOImpl();
+            case ORDERDETAILS:
+                return new OrderDetailsDAOImpl();
             default:
                 return null;
         }

@@ -198,15 +198,6 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        JsonReader reader = Json.createReader(req.getReader());
-//        JsonObject jsonObject = reader.readObject();
-//        String customerID = jsonObject.getString("id");
-//        String customerName = jsonObject.getString("name");
-//        String customerAddress = jsonObject.getString("address");
-//        String customerContact = jsonObject.getString("contact");
-//
-//        PrintWriter writer = resp.getWriter();
-//        resp.setContentType("Application/json");
 
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
