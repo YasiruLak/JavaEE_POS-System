@@ -70,7 +70,7 @@ public class ItemBOImpl implements ItemBO {
 
     @Override
     public boolean deleteItem(Connection connection, String itemCode) throws SQLException, ClassNotFoundException {
-        return false;
+        return itemDAO.delete(itemCode, connection);
     }
 
     @Override

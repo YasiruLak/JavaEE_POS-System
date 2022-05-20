@@ -156,14 +156,11 @@ public class ItemServlet extends HttpServlet {
         String itemCode = req.getParameter("itemCode");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
-        resp.addHeader("Access-Control-Allow-Origin", "*");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("Delete from Item where itemCode=?");
-            preparedStatement.setObject(1, itemCode);
 
-            if (preparedStatement.executeUpdate() > 0){
+            if (itemBO.deleteItem(connection, itemCode)){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("status",200);
                 objectBuilder.add("data","");
@@ -180,12 +177,24 @@ public class ItemServlet extends HttpServlet {
             connection.close();
 
         } catch (SQLException e) {
+
             resp.setStatus(200);
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("status", 500);
             objectBuilder.add("message", "Error");
             objectBuilder.add("data", e.getLocalizedMessage());
             writer.print(objectBuilder.build());
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+
+            resp.setStatus(200);
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Error");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
             e.printStackTrace();
         }
 

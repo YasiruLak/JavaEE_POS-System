@@ -176,6 +176,7 @@ public class CustomerServlet extends HttpServlet {
             connection.close();
 
         } catch (SQLException e) {
+
             resp.setStatus(200);
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("status", 500);
@@ -183,7 +184,9 @@ public class CustomerServlet extends HttpServlet {
             objectBuilder.add("data", e.getLocalizedMessage());
             writer.print(objectBuilder.build());
             e.printStackTrace();
+
         } catch (ClassNotFoundException e) {
+
             resp.setStatus(200);
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("status", 500);
