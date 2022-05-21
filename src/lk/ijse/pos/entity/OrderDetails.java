@@ -14,15 +14,17 @@ public class OrderDetails {
     private String oId;
     private int qty;
     private double price;
+    private double total;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(String iCode, String oId, int qty, double price) {
+    public OrderDetails(String iCode, String oId, int qty, double price, double total) {
         this.iCode = iCode;
         this.oId = oId;
         this.qty = qty;
         this.price = price;
+        this.total = total;
     }
 
     public String getiCode() {
@@ -55,5 +57,13 @@ public class OrderDetails {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

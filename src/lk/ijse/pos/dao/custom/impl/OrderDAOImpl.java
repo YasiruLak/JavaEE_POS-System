@@ -22,8 +22,8 @@ import java.util.ArrayList;
 public class OrderDAOImpl implements OrderDAO {
     @Override
     public boolean add(Orders orders, Connection connection) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"INSERT INTO Orders VALUES (?,?,?,?,?,?,?)",orders.getOrderId(),
-                orders.getcId(), orders.getOrderDate(), orders.getTime(), orders.getTotal(), orders.getDiscount(),
+        return CrudUtil.executeUpdate(connection,"INSERT INTO Orders VALUES (?,?,?,?,?,?)",orders.getOrderId(),
+                orders.getcId(), orders.getOrderDate(), orders.getTotal(), orders.getDiscount(),
                 orders.getSubTotal());
     }
 

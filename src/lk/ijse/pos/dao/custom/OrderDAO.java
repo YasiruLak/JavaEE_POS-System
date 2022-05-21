@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @year : 2022
  * @since : 0.1.0
  **/
-public interface OrderDAO extends CrudDAO<Orders, String> {
+public interface OrderDAO extends CrudDAO<Orders, String, Connection> {
 
     boolean ifOrderExist(String oid, Connection connection) throws SQLException, ClassNotFoundException;
 

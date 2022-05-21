@@ -4,6 +4,8 @@ import lk.ijse.pos.dao.CrudDAO;
 import lk.ijse.pos.entity.OrderDetails;
 import lk.ijse.pos.entity.Orders;
 
+import java.sql.Connection;
+
 /**
  * @author : Yasiru Dahanayaka
  * @name : JavaEE POS System
@@ -12,5 +14,5 @@ import lk.ijse.pos.entity.Orders;
  * @year : 2022
  * @since : 0.1.0
  **/
-public interface OrderDetailsDAO extends CrudDAO<OrderDetails, String> {
+public interface OrderDetailsDAO extends CrudDAO<OrderDetails, String, Connection> {
 }

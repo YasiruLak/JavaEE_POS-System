@@ -3,6 +3,8 @@ package lk.ijse.pos.dao.custom;
 import lk.ijse.pos.dao.CrudDAO;
 import lk.ijse.pos.entity.Item;
 
+import java.sql.Connection;
+
 /**
  * @author : Yasiru Dahanayaka
  * @name : JavaEE POS System
@@ -11,5 +13,5 @@ import lk.ijse.pos.entity.Item;
  * @year : 2022
  * @since : 0.1.0
  **/
-public interface ItemDAO extends CrudDAO<Item, String> {
+public interface ItemDAO extends CrudDAO<Item, String, Connection> {
 }

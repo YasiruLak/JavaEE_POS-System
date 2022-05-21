@@ -41,33 +41,33 @@ public class OrderBOImpl implements OrderBO {
 
     @Override
     public boolean saveOrder(Connection connection, OrdersDTO ordersDTO) throws SQLException, ClassNotFoundException {
-        Connection connection1 = null;
+        Connection con = null;
 
-        connection1 = dataSource.getConnection();
+        connection = dataSource.getConnection();
 
         boolean orderAvailable = orderDAO.ifOrderExist(ordersDTO.getOrderId(), connection);
         if (orderAvailable) {
             return false;
         }
 
-        connection1.setAutoCommit(false);
-        Orders orders = new Orders(ordersDTO.getOrderId(), ordersDTO.getcId(), ordersDTO.getOrderDate(), ordersDTO.getOrderTime(),
+        connection.setAutoCommit(false);
+        Orders orders = new Orders(ordersDTO.getOrderId(), ordersDTO.getcId(), ordersDTO.getOrderDate(),
                 ordersDTO.getTotal(), ordersDTO.getDiscount(), ordersDTO.getSubTotal());
 
         boolean orderAdded = orderDAO.add(orders, connection);
 
         if (!orderAdded) {
-            connection1.rollback();
-            connection1.setAutoCommit(true);
+            connection.rollback();
+            connection.setAutoCommit(true);
             return false;
         }
 
         for (OrderDetailsDTO detailsDTO : ordersDTO.getOrderDetail()) {
-            OrderDetails orderDetails = new OrderDetails(detailsDTO.getoId(), detailsDTO.getiCode(), detailsDTO.getoQty(), detailsDTO.getPrice());
+            OrderDetails orderDetails = new OrderDetails(detailsDTO.getoId(), detailsDTO.getiCode(), detailsDTO.getoQty(), detailsDTO.getPrice(), detailsDTO.getTotal());
             boolean orderDetailsAdded = orderDetailsDAO.add(orderDetails, connection);
             if (!orderDetailsAdded) {
-                connection1.rollback();
-                connection1.setAutoCommit(true);
+                connection.rollback();
+                connection.setAutoCommit(true);
                 return false;
             }
 
@@ -75,15 +75,16 @@ public class OrderBOImpl implements OrderBO {
             search.setQtyOnHand(search.getQtyOnHand() - detailsDTO.getoQty());
             boolean update = itemDAO.update(search, connection);
             if (!update) {
-                connection1.rollback();
-                connection1.setAutoCommit(true);
+                connection.rollback();
+                connection.setAutoCommit(true);
                 return false;
             }
         }
 
-        connection1.commit();
-        connection1.setAutoCommit(true);
+        connection.commit();
+        connection.setAutoCommit(true);
         return true;
+
     }
 
 

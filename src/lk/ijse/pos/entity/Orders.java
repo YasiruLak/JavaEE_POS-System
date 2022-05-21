@@ -16,7 +16,6 @@ public class Orders {
     private String orderId;
     private String cId;
     private Date orderDate;
-    private Time time;
     private double total;
     private double discount;
     private double subTotal;
@@ -24,11 +23,10 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(String orderId, String cId, Date orderDate, Time time, double total, double discount, double subTotal) {
+    public Orders(String orderId, String cId, Date orderDate, double total, double discount, double subTotal) {
         this.orderId = orderId;
         this.cId = cId;
         this.orderDate = orderDate;
-        this.time = time;
         this.total = total;
         this.discount = discount;
         this.subTotal = subTotal;
@@ -56,14 +54,6 @@ public class Orders {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
     }
 
     public double getTotal() {

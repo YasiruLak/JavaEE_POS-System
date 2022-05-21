@@ -307,15 +307,32 @@ function manageDiscount() {
 
 $("#btnSubmitOrder").click(function () {
 
-    var discount = $("#total").val() - $("#subtotal").val();
+    var discount = parseInt($("#total").text()) - parseInt($("#subtotal").text());
+
+    let orderDetails = new Array();
+
+    for (let i = 0; i < $("#addToCartTable > tr").length; i++) {
+        var OrderDetail = {
+            oId : $("#txtOrderID").val(),
+            itemCode : $("#addToCartTable > tr").children(':nth-child(1)')[i].innerText,
+            qty : $("#addToCartTable > tr").children(':nth-child(4)')[i].innerText,
+            price : $("#addToCartTable > tr").children(':nth-child(3)')[i].innerText,
+            total : $("#addToCartTable > tr").children(':nth-child(5)')[i].innerText
+
+        }
+
+        orderDetails.push(OrderDetail);
+
+    }
 
     var orderOb = {
-        orderID:$("#txtOrderItemCode").val(),
-        cId:$("#txtOrderCusID").val(),
+        orderID:$("#txtOrderID").val(),
+        cId:$("#txtOrderCusID option:selected").text(),
         orderDate:$("#txtOrderDate").val(),
-        total:$("#total").val(),
-        discount:discount,
-        subTotal:$("#subtotal").val()
+        total:$("#total").text(),
+        discount:discount.toString(),
+        subTotal:$("#subtotal").text(),
+        ODetail : orderDetails
     };
 
     if ($("#txtCash").val() == '') {
@@ -323,9 +340,13 @@ $("#btnSubmitOrder").click(function () {
     }else {
         $.ajax({
             url: "orders",
-            method: "GET",
+            method: "POST",
             contentType: "application/json",
             data: JSON.stringify(orderOb),
+            success: function (resp) {
+                alert(resp);
+            }
+
         });
 
         manageBalance();

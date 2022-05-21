@@ -13,5 +13,5 @@ import java.sql.Connection;
  * @year : 2022
  * @since : 0.1.0
  **/
-public interface CustomerDAO extends CrudDAO<Customer, String> {
+public interface CustomerDAO extends CrudDAO<Customer, String, Connection> {
 }
