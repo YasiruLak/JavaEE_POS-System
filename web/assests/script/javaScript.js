@@ -74,6 +74,7 @@ $("#linkPurchaseOrder").click(function () {
     $("#linkOrder").css('color', 'black');
     $("#linkPurchaseOrder").css('color', 'white');
 
+    loadAllOrders();
 
 });
 

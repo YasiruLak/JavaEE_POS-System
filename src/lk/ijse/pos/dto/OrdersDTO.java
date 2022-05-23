@@ -36,6 +36,16 @@ public class OrdersDTO {
         this.orderDetail = orderDetail;
     }
 
+    public OrdersDTO(String orderId, String getcId, Date orderDate, double total, double discount, double subTotal) {
+        this.orderId = orderId;
+        this.cId = cId;
+        this.orderDate = orderDate;
+        this.total = total;
+        this.discount = discount;
+        this.subTotal = subTotal;
+        this.orderDetail = orderDetail;
+    }
+
     public String getOrderId() {
         return orderId;
     }

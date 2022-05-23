@@ -22,6 +22,10 @@ public interface OrderBO extends SuperBO {
 
     boolean saveOrder(Connection connection, OrdersDTO ordersDTO) throws SQLException, ClassNotFoundException;
 
+    boolean saveOrderDetail(Connection connection, OrdersDTO ordersDTO) throws SQLException, ClassNotFoundException;
+
+    boolean updateQtyOnHand(Connection connection, String id, int qty) throws SQLException, ClassNotFoundException;
+
     ObservableList<OrdersDTO> getAllOrders(Connection connection) throws SQLException, ClassNotFoundException;
 
     OrdersDTO searchOrder(String orderId, Connection connection) throws SQLException, ClassNotFoundException;

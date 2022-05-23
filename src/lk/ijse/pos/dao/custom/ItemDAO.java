@@ -4,6 +4,7 @@ import lk.ijse.pos.dao.CrudDAO;
 import lk.ijse.pos.entity.Item;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -14,4 +15,6 @@ import java.sql.Connection;
  * @since : 0.1.0
  **/
 public interface ItemDAO extends CrudDAO<Item, String, Connection> {
+
+    boolean updateQtyOnHand(Connection connection, String id, int qty) throws SQLException, ClassNotFoundException;
 }

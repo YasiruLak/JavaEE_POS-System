@@ -1,5 +1,6 @@
 package lk.ijse.pos.controller;
 
+import javafx.collections.ObservableList;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.custom.OrderBO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
@@ -34,14 +35,68 @@ public class PlaceOrderServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;
 
-    LocalTime now = LocalTime.now();
-
-    private OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDERS);
-
+    private final OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDERS);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        try {
+
+        String option = req.getParameter("option");
+        String orderID = req.getParameter("orderId");
+        resp.setContentType("application/json");
+        Connection connection = dataSource.getConnection();
+        PrintWriter writer = resp.getWriter();
+
+        switch (option){
+
+            case "GETID":
+
+                JsonObjectBuilder builder = Json.createObjectBuilder();
+                builder.add("orderId",orderBO.generateNewOrderId(connection));
+                writer.print(builder.build());
+
+                break;
+
+            case "GETALL":
+
+                ObservableList<OrdersDTO> allOrders = orderBO.getAllOrders(connection);
+                JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+                for (OrdersDTO ordersDTO : allOrders){
+
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    objectBuilder.add("orderId", ordersDTO.getOrderId());
+                    objectBuilder.add("cId", ordersDTO.getcId());
+                    objectBuilder.add("orderDate", String.valueOf(ordersDTO.getOrderDate()));
+                    objectBuilder.add("total", ordersDTO.getTotal());
+                    objectBuilder.add("discount", ordersDTO.getDiscount());
+                    objectBuilder.add("subTotal", ordersDTO.getSubTotal());
+                    arrayBuilder.add(objectBuilder.build());
+
+                    System.out.println( objectBuilder.add("orderId", ordersDTO.getOrderId()));
+                    System.out.println(objectBuilder.add("cId", ordersDTO.getcId()));
+                    System.out.println(objectBuilder.add("orderDate", String.valueOf(ordersDTO.getOrderDate())));
+                    System.out.println(objectBuilder.add("total", ordersDTO.getTotal()));
+                    System.out.println(objectBuilder.add("discount", ordersDTO.getDiscount()));
+                    System.out.println(objectBuilder.add("subTotal", ordersDTO.getSubTotal()));
+
+                }
+
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                response.add("status", 200);
+                response.add("message", "Done");
+                response.add("data", arrayBuilder.build());
+                writer.print(response.build());
+
+                break;
+        }
+
+        connection.close();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -50,8 +105,6 @@ public class PlaceOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            String option = req.getParameter("option");
-            String orderId = req.getParameter("orderId");
             resp.setContentType("application/json");
             Connection connection = dataSource.getConnection();
             PrintWriter writer = resp.getWriter();

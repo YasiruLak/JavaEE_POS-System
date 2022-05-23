@@ -1,5 +1,6 @@
 package lk.ijse.pos.dao.custom.impl;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.pos.dao.CrudUtil;
 import lk.ijse.pos.dao.custom.OrderDAO;
@@ -44,7 +45,24 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public ObservableList<Orders> getAll(Connection connection) throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM Orders");
+
+        ObservableList<Orders> obList = FXCollections.observableArrayList();
+
+        while (resultSet.next()) {
+            Orders orders = new Orders(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDate(3),
+                    resultSet.getDouble(4),
+                    resultSet.getDouble(5),
+                    resultSet.getDouble(6)
+            );
+
+            obList.add(orders);
+        }
+
+        return obList;
     }
 
     @Override
@@ -54,7 +72,12 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public String generateNewOrderId(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1;");
-        return resultSet.next() ? String.format("OD%03d", (Integer.parseInt(resultSet.getString("orderId").replace("OD", "")) + 1)) : "OD001";
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1");
+
+        if (resultSet.next()){
+            return resultSet.getString(1);
+        }else {
+            return null;
+        }
     }
 }

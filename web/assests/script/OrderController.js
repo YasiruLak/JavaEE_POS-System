@@ -1,11 +1,10 @@
 function generateOrderID() {
     $("#txtOrderID").val("O00-0001");
     $.ajax({
-        url: "order",
+        url: "orders?option=GETID",
         method: "GET",
         success: function (resp) {
-            for (const orders of resp.data){
-                let orderId = orders.orderId;
+                let orderId = resp.orderId;
                 let tempId = parseInt(orderId.split("-")[1]);
                 tempId = tempId+1;
                 if (tempId <= 9){
@@ -17,14 +16,36 @@ function generateOrderID() {
                 }else {
                     $("#txtOrderID").val("O00-"+tempId);
                 }
-
-            }
+        },
+        error: function (ob, statusText, error) {
 
         }
     });
 }
 
 generateOrderID();
+
+function loadAllOrders(){
+    $("#orderTable").empty();
+    $.ajax({
+        url: "orders?option=GETALL",
+        method: "GET",
+        success: function (resp) {
+            for (const orders of resp.data) {
+
+                console.log(resp);
+                console.log(resp.data);
+
+                let row = `<tr><td>${orders.orderId}</td><td>${orders.cId}</td><td>${orders.orderDate}</td><td>
+                ${orders.total}</td><td>${orders.discount}</td><td>${orders.subTotal}</td></tr>`;
+                $("#orderTable").append(row);
+
+            }
+        }
+    });
+}
+
+loadAllOrders();
 
 function setCurrentDate() {
     let orderDate = $('#txtOrderDate');
@@ -139,8 +160,8 @@ $("#txtOrderItemCode").click(function () {
             }
         }
     });
-
 });
+
 
 var tableRow;
 
@@ -169,7 +190,6 @@ $("#btnAddToCart").click(function () {
             manageTotal($("#txtQty").val() * $("#txtOrderItemPrice").val());
             manageDiscount();
             itemTextFieldClear();
-            // setButton();
 
         } else if (duplicate == true) {
             manageQuantity(tableRow.children(':nth-child(4)').text(), $("#txtQty").val());
@@ -207,7 +227,6 @@ $("#btnAddToCart").click(function () {
 
         });
     }
-
 });
 
 var itemCode;
