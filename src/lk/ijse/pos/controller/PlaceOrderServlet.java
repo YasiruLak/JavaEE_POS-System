@@ -43,7 +43,7 @@ public class PlaceOrderServlet extends HttpServlet {
         try {
 
         String option = req.getParameter("option");
-        String orderID = req.getParameter("orderId");
+        String orderID = req.getParameter("orderID");
         resp.setContentType("application/json");
         Connection connection = dataSource.getConnection();
         PrintWriter writer = resp.getWriter();
@@ -67,14 +67,14 @@ public class PlaceOrderServlet extends HttpServlet {
 
                     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                     objectBuilder.add("orderId", ordersDTO.getOrderId());
-                    objectBuilder.add("cId", ordersDTO.getcId());
+                    objectBuilder.add("cid", ordersDTO.getcId());
                     objectBuilder.add("orderDate", String.valueOf(ordersDTO.getOrderDate()));
                     objectBuilder.add("total", ordersDTO.getTotal());
                     objectBuilder.add("discount", ordersDTO.getDiscount());
                     objectBuilder.add("subTotal", ordersDTO.getSubTotal());
                     arrayBuilder.add(objectBuilder.build());
 
-                    System.out.println( objectBuilder.add("orderId", ordersDTO.getOrderId()));
+                    System.out.println( objectBuilder.add("orderID", ordersDTO.getOrderId()));
                     System.out.println(objectBuilder.add("cId", ordersDTO.getcId()));
                     System.out.println(objectBuilder.add("orderDate", String.valueOf(ordersDTO.getOrderDate())));
                     System.out.println(objectBuilder.add("total", ordersDTO.getTotal()));
@@ -97,7 +97,6 @@ public class PlaceOrderServlet extends HttpServlet {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -139,14 +138,18 @@ public class PlaceOrderServlet extends HttpServlet {
             if (orderBO.saveOrder(connection, ordersDTO)){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("status",200);
-                objectBuilder.add("data","");
                 objectBuilder.add("message","Successfully Added");
+                objectBuilder.add("data","");
+                resp.setStatus(HttpServletResponse.SC_OK);
+
                 writer.print(objectBuilder.build());
             }else {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("status", 400);
-                objectBuilder.add("data", "Order Not Placed");
                 objectBuilder.add("message", "");
+                objectBuilder.add("data", "Order Not Placed");
+                resp.setStatus(HttpServletResponse.SC_OK);
+
                 writer.print(objectBuilder.build());
             }
 
@@ -159,6 +162,7 @@ public class PlaceOrderServlet extends HttpServlet {
             objectBuilder.add("status", 500);
             objectBuilder.add("message", "Error");
             objectBuilder.add("data", throwables.getLocalizedMessage());
+            resp.setStatus(HttpServletResponse.SC_OK);
             throwables.printStackTrace();
 
             throwables.printStackTrace();

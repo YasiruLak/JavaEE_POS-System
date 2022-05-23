@@ -121,13 +121,16 @@ public class OrderBOImpl implements OrderBO {
     public boolean saveOrderDetail(Connection connection, OrdersDTO ordersDTO) throws SQLException, ClassNotFoundException {
 
         for (OrderDetailsDTO item : ordersDTO.getOrderDetail()) {
-            boolean ifOrderDetailSaved = orderDetailsDAO.add(new OrderDetails(
-                            item.getoId(), item.getiCode(), item.getoQty(), item.getPrice(), item.getTotal()),
+
+            OrderDetails orderDetails = new OrderDetails(
+                    item.getoId(), item.getiCode(), item.getoQty(), item.getPrice(), item.getTotal());
+
+            boolean ifOrderDetailSaved = orderDetailsDAO.add(orderDetails,
                     connection
             );
             if (ifOrderDetailSaved){
                 if (updateQtyOnHand(connection, item.getiCode(),item.getoQty())){
-
+                    return true;
                 }else {
                     return false;
                 }
