@@ -43,7 +43,7 @@ public class PlaceOrderServlet extends HttpServlet {
         try {
 
         String option = req.getParameter("option");
-        String orderID = req.getParameter("orderID");
+//        String orderID = req.getParameter("orderID");
         resp.setContentType("application/json");
         Connection connection = dataSource.getConnection();
         PrintWriter writer = resp.getWriter();
@@ -73,13 +73,6 @@ public class PlaceOrderServlet extends HttpServlet {
                     objectBuilder.add("discount", ordersDTO.getDiscount());
                     objectBuilder.add("subTotal", ordersDTO.getSubTotal());
                     arrayBuilder.add(objectBuilder.build());
-
-                    System.out.println( objectBuilder.add("orderID", ordersDTO.getOrderId()));
-                    System.out.println(objectBuilder.add("cId", ordersDTO.getcId()));
-                    System.out.println(objectBuilder.add("orderDate", String.valueOf(ordersDTO.getOrderDate())));
-                    System.out.println(objectBuilder.add("total", ordersDTO.getTotal()));
-                    System.out.println(objectBuilder.add("discount", ordersDTO.getDiscount()));
-                    System.out.println(objectBuilder.add("subTotal", ordersDTO.getSubTotal()));
 
                 }
 
@@ -126,29 +119,21 @@ public class PlaceOrderServlet extends HttpServlet {
             }
 
             OrdersDTO ordersDTO = new OrdersDTO(
-                  jsonObject.getString("orderID"),
-                  jsonObject.getString("cId"),
+                    jsonObject.getString("orderID"),
+                    jsonObject.getString("cId"),
                     Date.valueOf(jsonObject.getString("orderDate")),
                     Double.parseDouble(jsonObject.getString("total")),
-                  Double.parseDouble(jsonObject.getString("discount")),
-                  Double.parseDouble(jsonObject.getString("subTotal")),
-                  orderDetailsDTOS
+                    Double.parseDouble(jsonObject.getString("discount")),
+                    Double.parseDouble(jsonObject.getString("subTotal")),
+                    orderDetailsDTOS
             );
 
             if (orderBO.saveOrder(connection, ordersDTO)){
+                resp.setStatus(HttpServletResponse.SC_OK);
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("status",200);
+                objectBuilder.add("status",resp.getStatus());
                 objectBuilder.add("message","Successfully Added");
                 objectBuilder.add("data","");
-                resp.setStatus(HttpServletResponse.SC_OK);
-
-                writer.print(objectBuilder.build());
-            }else {
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("status", 400);
-                objectBuilder.add("message", "");
-                objectBuilder.add("data", "Order Not Placed");
-                resp.setStatus(HttpServletResponse.SC_OK);
 
                 writer.print(objectBuilder.build());
             }
@@ -157,12 +142,11 @@ public class PlaceOrderServlet extends HttpServlet {
 
             } catch (SQLException | ClassNotFoundException throwables) {
 
-            resp.setStatus(200);
+            resp.setStatus(HttpServletResponse.SC_OK);
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("status", 500);
+            objectBuilder.add("status", resp.getStatus());
             objectBuilder.add("message", "Error");
             objectBuilder.add("data", throwables.getLocalizedMessage());
-            resp.setStatus(HttpServletResponse.SC_OK);
             throwables.printStackTrace();
 
             throwables.printStackTrace();

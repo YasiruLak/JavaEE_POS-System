@@ -33,9 +33,6 @@ function loadAllOrders(){
         success: function (resp) {
             for (const orders of resp.data) {
 
-                console.log(resp);
-                console.log(resp.data);
-
                 let row = `<tr><td>${orders.orderID}</td><td>${orders.cId}</td><td>${orders.orderDate}</td><td>
                 ${orders.total}</td><td>${orders.discount}</td><td>${orders.subTotal}</td></tr>`;
                 $("#orderTable").append(row);
@@ -62,13 +59,11 @@ setCurrentDate();
 function loadItemComboBoxData() {
     $("#txtOrderItemCode").empty();
     $("#txtOrderItemCode").append($("<option></option>").attr("value", 0).text("Select Item"));
-    console.log("Enter")
     let count = 0;
     $.ajax({
         url: "item?option=GETALL",
         method: "GET",
         success: function (res) {
-            console.log(res);
             for (const item of res.data) {
                 $("#txtOrderItemCode").append($("<option></option>").attr("value", count).text(item.itemCode));
                 count++;
@@ -84,13 +79,11 @@ function loadItemComboBoxData() {
 function loadCustomerComboBoxData() {
     $("#txtOrderCusID").empty();
     $("#txtOrderCusID").append($("<option></option>").attr("value", 0).text("Select Customer"));
-    console.log("Enter")
     let count = 0;
     $.ajax({
         url: "customer?option=GETALL",
         method: "GET",
         success: function (res) {
-            console.log(res);
             for (const customer of res.data) {
                 $("#txtOrderCusID").append($("<option></option>").attr("value", count).text(customer.id));
                 count++;
@@ -170,17 +163,13 @@ function bindOrderClickEvent() {
         let itemName = $(this).children(":eq(1)").text();
         let unitPrice = $(this).children(":eq(2)").text();
         let qty = $(this).children(":eq(3)").text();
-        // let total = $(this).children(":eq(4)").text();
 
             $.ajax({
             url: "item?option=SEARCH&itemCode=" + itemCode,
             method: "GET",
             success: function (resp) {
-
                     let avQty = resp.qtyOnHand;
-                    console.log(avQty);
                     let newQty = avQty - qty;
-                    console.log(newQty);
                 parseInt($("#txtOrderItemQtyOnHand").val(newQty));
             }
         });
@@ -189,8 +178,6 @@ function bindOrderClickEvent() {
         $("#txtOrderItemName").val(itemName);
         $("#txtOrderItemPrice").val(unitPrice);
         $("#txtQty").val(qty);
-
-
 
     });
 }
@@ -204,11 +191,10 @@ $("#btnAddToCart").click(function () {
     } else if ($("#txtOrderItemName").val() == '') {
         alert("Please Select Item");
     } else if ($("#txtQty").val() == '') {
-        alert("Please Enter Quantity");
-    } else if ($("#txtQty").val() > $("#txtOrderItemQtyOnHand").val()) {
+        alert("Please Enter Valid Quantity");
+    }else if (parseInt($("#txtQty").val()) > parseInt($("#txtOrderItemQtyOnHand").val())){
         alert("Please Check Stock");
     }else{
-
         let duplicate = false;
 
         for (let i = 0; i < $("#addToCartTable tr").length; i++) {
@@ -226,6 +212,7 @@ $("#btnAddToCart").click(function () {
             bindOrderClickEvent();
 
         } else if (duplicate == true) {
+
             manageQuantity(tableRow.children(':nth-child(4)').text(), $("#txtQty").val());
             $(tableRow).children(':nth-child(4)').text($("#txtQty").val());
 
@@ -284,7 +271,7 @@ var total = 0;
 
 function manageTotal(amount) {
     total += amount;
-    $("#total").text(total);
+    parseInt($("#total").text(total));
 
     manageDiscount();
 }
@@ -293,7 +280,7 @@ function updateManageTotal(prvTotal, nowTotal) {
     total -= prvTotal;
     total += nowTotal;
 
-    $("#total").text(total);
+    parseInt($("#total").text(total));
 
     manageDiscount();
 }
@@ -310,93 +297,100 @@ function manageQuantity(prevQty, nowQty) {
 }
 
 function manageDiscount() {
-    var net = $("#total").text();
+    var net = parseInt($("#total").text());
     var discount = 0;
 
     if (net > 500 && net < 999) {
         discount = 2;
-        $("#txtDiscount").val(discount);
+        parseInt($("#txtDiscount").val(discount));
     } else if (net > 1000 && net < 2999) {
         discount = 4;
-        $("#txtDiscount").val(discount);
+        parseInt($("#txtDiscount").val(discount));
     } else if (net > 3000 && net < 4999) {
         discount = 5;
-        $("#txtDiscount").val(discount);
+        parseInt($("#txtDiscount").val(discount));
     } else if (net > 5000 && net < 9999) {
         discount = 8;
-        $("#txtDiscount").val(discount);
+        parseInt($("#txtDiscount").val(discount));
     } else if (net > 10000) {
         discount = 10;
-        $("#txtDiscount").val(discount);
+        parseInt($("#txtDiscount").val(discount));
     }
 
     var subTotal = (net * discount) / 100;
     subTotal = net - subTotal;
-    $("#subtotal").text(subTotal);
-
+    parseInt($("#subtotal").text(subTotal));
 
 }
 
 $("#btnSubmitOrder").click(function () {
 
-    var discount = parseInt($("#total").text()) - parseInt($("#subtotal").text());
-
     let orderDetails = new Array();
 
-    for (let i = 0; i < $("#addToCartTable > tr").length; i++) {
-        var OrderDetail = {
-            oId : $("#txtOrderID").val(),
-            itemCode : $("#addToCartTable > tr").children(':nth-child(1)')[i].innerText,
-            qty : $("#addToCartTable > tr").children(':nth-child(4)')[i].innerText,
-            price : $("#addToCartTable > tr").children(':nth-child(3)')[i].innerText,
-            total : $("#addToCartTable > tr").children(':nth-child(5)')[i].innerText
+    if (parseInt($("#subtotal").text()) > parseInt($("#txtCash").val())){
+        alert("Please need more money");
+        $("#txtCash").val('');
+    }else{
+        var discount = parseInt($("#total").text()) - parseInt($("#subtotal").text());
+
+
+        for (let i = 0; i < $("#addToCartTable > tr").length; i++) {
+            var OrderDetail = {
+                oId : $("#txtOrderID").val(),
+                itemCode : $("#addToCartTable > tr").children(':nth-child(1)')[i].innerText,
+                qty : $("#addToCartTable > tr").children(':nth-child(4)')[i].innerText,
+                price : $("#addToCartTable > tr").children(':nth-child(3)')[i].innerText,
+                total : $("#addToCartTable > tr").children(':nth-child(5)')[i].innerText
+
+            }
+            orderDetails.push(OrderDetail);
+        }
+
+        var orderOb = {
+            orderID:$("#txtOrderID").val(),
+            cId:$("#txtOrderCusID option:selected").text(),
+            orderDate:$("#txtOrderDate").val(),
+            total:$("#total").text(),
+            discount:discount.toString(),
+            subTotal:$("#subtotal").text(),
+            ODetail : orderDetails
+        };
+
+        if ($("#txtCash").val() == '') {
+            alert("Please Enter Cash");
+        }else {
+            $.ajax({
+                url: "orders",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(orderOb),
+                success: function (resp) {
+                    manageBalance();
+                    itemTextFieldClear();
+                    customerTextFieldClear();
+                    generateOrderID();
+                    $("#addToCartTable").empty();
+                    alert("Successfully Added");
+
+                },
+                error: function (ob, textStatus, error) {
+                    alert(textStatus);
+                }
+            });
 
         }
-        orderDetails.push(OrderDetail);
     }
-    var orderOb = {
-        orderID:$("#txtOrderID").val(),
-        cId:$("#txtOrderCusID option:selected").text(),
-        orderDate:$("#txtOrderDate").val(),
-        total:$("#total").text(),
-        discount:discount.toString(),
-        subTotal:$("#subtotal").text(),
-        ODetail : orderDetails
-    };
 
-    if ($("#txtCash").val() == '') {
-        alert("Please Enter Cash");
-    }else {
-        $.ajax({
-            url: "orders",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(orderOb),
-            success: function (resp) {
-                alert("Successfully Added");
-            },
-            error: function (ob, textStatus, error) {
-                alert(textStatus);
-            }
-        });
-
-        manageBalance();
-        itemTextFieldClear();
-        customerTextFieldClear();
-        generateOrderID();
-        $("#addToCartTable").empty();
-
-    }
 });
 
 function manageBalance() {
     let balance = 0;
-    let subtotal = $("#subtotal").text();
-    let cash = $("#txtCash").val();
+    let subtotal = parseInt($("#subtotal").text());
+    let cash = parseInt($("#txtCash").val());
 
     balance = cash - subtotal;
 
-    $("#txtBalance").val(balance);
+    parseInt($("#txtBalance").val(balance));
 }
 
 function itemTextFieldClear() {

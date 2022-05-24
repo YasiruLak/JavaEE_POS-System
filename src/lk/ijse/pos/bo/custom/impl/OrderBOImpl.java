@@ -59,7 +59,6 @@ public class OrderBOImpl implements OrderBO {
                 return false;
             }
 
-
             Orders orders = new Orders(ordersDTO.getOrderId(), ordersDTO.getcId(), ordersDTO.getOrderDate(),
                     ordersDTO.getTotal(), ordersDTO.getDiscount(), ordersDTO.getSubTotal());
 
@@ -79,34 +78,9 @@ public class OrderBOImpl implements OrderBO {
                 return false;
             }
 
-//            for (OrderDetailsDTO detailsDTO : ordersDTO.getOrderDetail()) {
-//                OrderDetails orderDetails = new OrderDetails(detailsDTO.getoId(), detailsDTO.getiCode(), detailsDTO.getoQty(), detailsDTO.getPrice(), detailsDTO.getTotal());
-//                boolean orderDetailsAdded = orderDetailsDAO.add(orderDetails, connection);
-//                if (!orderDetailsAdded) {
-//                    connection.rollback();
-//                    return false;
-//                }
-//
-//                Item search = itemDAO.search(detailsDTO.getiCode(), connection);
-//                search.setQtyOnHand(search.getQtyOnHand() - detailsDTO.getoQty());
-//                boolean update = itemDAO.update(search, connection);
-//                if (!update) {
-//                    connection.rollback();
-//                    return false;
-//                }
-//            }
-//
-//            connection.commit();
-//            return true;
-
-
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        finally {
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
@@ -129,16 +103,11 @@ public class OrderBOImpl implements OrderBO {
                     connection
             );
             if (ifOrderDetailSaved){
-                if (updateQtyOnHand(connection, item.getiCode(),item.getoQty())){
-                    return true;
-                }else {
-                    return false;
-                }
+                return updateQtyOnHand(connection, item.getiCode(), item.getoQty());
             }else {
                 return false;
             }
         }
-
         return true;
     }
 
