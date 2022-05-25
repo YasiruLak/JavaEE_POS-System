@@ -33,7 +33,7 @@ function loadAllOrders(){
         success: function (resp) {
             for (const orders of resp.data) {
 
-                let row = `<tr><td>${orders.orderID}</td><td>${orders.cId}</td><td>${orders.orderDate}</td><td>
+                let row = `<tr><td>${orders.orderId}</td><td>${orders.cid}</td><td>${orders.orderDate}</td><td>
                 ${orders.total}</td><td>${orders.discount}</td><td>${orders.subTotal}</td></tr>`;
                 $("#orderTable").append(row);
 

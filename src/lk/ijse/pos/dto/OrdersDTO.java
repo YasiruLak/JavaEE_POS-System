@@ -23,9 +23,6 @@ public class OrdersDTO {
     private double subTotal;
     private ArrayList<OrderDetailsDTO> orderDetail;
 
-    public OrdersDTO() {
-    }
-
     public OrdersDTO(String orderId, String cId, Date orderDate, double total, double discount, double subTotal, ArrayList<OrderDetailsDTO> orderDetail) {
         this.orderId = orderId;
         this.cId = cId;
@@ -36,14 +33,13 @@ public class OrdersDTO {
         this.orderDetail = orderDetail;
     }
 
-    public OrdersDTO(String orderId, String getcId, Date orderDate, double total, double discount, double subTotal) {
+    public OrdersDTO(String orderId, String cId, Date orderDate, double total, double discount, double subTotal) {
         this.orderId = orderId;
         this.cId = cId;
         this.orderDate = orderDate;
         this.total = total;
         this.discount = discount;
         this.subTotal = subTotal;
-        this.orderDetail = orderDetail;
     }
 
     public String getOrderId() {
