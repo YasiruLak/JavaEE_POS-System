@@ -75,6 +75,7 @@ $("#linkPurchaseOrder").click(function () {
     $("#linkPurchaseOrder").css('color', 'white');
 
     loadAllOrders();
+    bindOrderDetailsClickEvent();
 
 });
 

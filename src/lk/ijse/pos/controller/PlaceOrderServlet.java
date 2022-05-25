@@ -3,6 +3,7 @@ package lk.ijse.pos.controller;
 import javafx.collections.ObservableList;
 import lk.ijse.pos.bo.BOFactory;
 import lk.ijse.pos.bo.custom.OrderBO;
+import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.dto.OrdersDTO;
 
@@ -43,18 +44,38 @@ public class PlaceOrderServlet extends HttpServlet {
         try {
 
         String option = req.getParameter("option");
-//        String orderID = req.getParameter("orderID");
+        String orderID = req.getParameter("orderId");
         resp.setContentType("application/json");
         Connection connection = dataSource.getConnection();
         PrintWriter writer = resp.getWriter();
 
         switch (option){
 
+            case "SEARCH":
+
+                ArrayList<OrderDetailsDTO> orderDetails = orderBO.searchOrderDetails(orderID, connection);
+
+                JsonArrayBuilder arrayBuilder1 = Json.createArrayBuilder();
+
+                for (OrderDetailsDTO orderDetail : orderDetails) {
+                    JsonObjectBuilder ob = Json.createObjectBuilder();
+                    ob.add("oId",orderDetail.getoId());
+                    ob.add("iCode",orderDetail.getiCode());
+                    ob.add("qty",orderDetail.getoQty());
+                    ob.add("price",orderDetail.getPrice());
+                    ob.add("total",orderDetail.getTotal());
+
+                    arrayBuilder1.add(ob.build());
+                }
+                writer.write(String.valueOf(arrayBuilder1.build()));
+
+                break;
+
             case "GETID":
 
-                JsonObjectBuilder builder = Json.createObjectBuilder();
-                builder.add("orderId",orderBO.generateNewOrderId(connection));
-                writer.print(builder.build());
+                JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+                jsonObjectBuilder.add("orderId",orderBO.generateNewOrderId(connection));
+                writer.print(jsonObjectBuilder.build());
 
                 break;
 

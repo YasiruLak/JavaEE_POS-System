@@ -1,5 +1,7 @@
 package lk.ijse.pos.entity;
 
+import java.util.ArrayList;
+
 /**
  * @author : Yasiru Dahanayaka
  * @name : JavaEE POS System
@@ -8,11 +10,10 @@ package lk.ijse.pos.entity;
  * @year : 2022
  * @since : 0.1.0
  **/
-public class OrderDetails {
+public class OrderDetails extends ArrayList<OrderDetails> {
 
     private String oId;
     private String iCode;
-
     private int qty;
     private double price;
     private double total;

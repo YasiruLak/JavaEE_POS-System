@@ -38,6 +38,7 @@ function loadAllOrders(){
                 $("#orderTable").append(row);
 
             }
+            bindOrderDetailsClickEvent();
         }
     });
 }
@@ -160,6 +161,7 @@ function bindOrderClickEvent() {
 
         tableRow = $(this);
         let itemCode = $(this).children(":eq(0)").text();
+        console.log(itemCode);
         let itemName = $(this).children(":eq(1)").text();
         let unitPrice = $(this).children(":eq(2)").text();
         let qty = $(this).children(":eq(3)").text();
@@ -325,7 +327,7 @@ function manageDiscount() {
 
 $("#btnSubmitOrder").click(function () {
 
-    let orderDetails = new Array();
+    let orderDetails = [];
 
     if (parseInt($("#subtotal").text()) > parseInt($("#txtCash").val())){
         alert("Please need more money");
@@ -408,5 +410,30 @@ function customerTextFieldClear() {
     $("#txtOrderCusAddress").val("");
 }
 
+function bindOrderDetailsClickEvent(){
+    $("#orderTable > tr").click('click', function () {
+
+        tableRow = $(this);
+        let oid = $(this).children(":eq(0)").text();
+
+        $("#orderDetailTable").empty();
+        $.ajax({
+            url: "orders?option=SEARCH&orderId=" + oid,
+            method: "GET",
+            success: function (resp) {
+                for (const orders of resp) {
+
+                    let row = `<tr><td>${orders.oId}</td><td>${orders.iCode}</td><td>${orders.qty}</td><td>
+                    ${orders.price}</td><td>${orders.total}</td></tr>`;
+                    $("#orderDetailTable").append(row);
+
+                }
+            }
+
+        });
+    });
+}
+
+bindOrderDetailsClickEvent();
 
 

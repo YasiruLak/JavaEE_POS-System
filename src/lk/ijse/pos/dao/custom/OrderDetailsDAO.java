@@ -5,6 +5,8 @@ import lk.ijse.pos.entity.OrderDetails;
 import lk.ijse.pos.entity.Orders;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -15,4 +17,5 @@ import java.sql.Connection;
  * @since : 0.1.0
  **/
 public interface OrderDetailsDAO extends CrudDAO<OrderDetails, String, Connection> {
+    ArrayList<OrderDetails> searchOrderDetail(String id, Connection connection) throws SQLException, ClassNotFoundException;
 }

@@ -134,9 +134,37 @@ public class OrderBOImpl implements OrderBO {
     }
 
     @Override
-    public OrdersDTO searchOrder(String orderId, Connection connection) throws SQLException, ClassNotFoundException {
-        return null;
+    public ObservableList<OrderDetailsDTO> getAllOrderDetails(Connection connection) throws SQLException, ClassNotFoundException {
+        ObservableList<OrderDetails> orderDetails = orderDetailsDAO.getAll(connection);
+
+        ObservableList<OrderDetailsDTO> obList = FXCollections.observableArrayList();
+
+        for (OrderDetails temp : orderDetails) {
+            OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(
+                    temp.getoId(), temp.getiCode(), temp.getQty(), temp.getPrice(), temp.getTotal()
+            );
+
+            obList.add(orderDetailsDTO);
+        }
+        return obList;
     }
+
+    @Override
+    public ArrayList<OrderDetailsDTO> searchOrderDetails(String orderId, Connection connection) throws SQLException, ClassNotFoundException {
+        ArrayList<OrderDetails> orderDetails = orderDetailsDAO.searchOrderDetail(orderId, connection);
+        ArrayList<OrderDetailsDTO> orderDetailDTOS = new ArrayList<>();
+        for (OrderDetails orderDetail : orderDetails) {
+            orderDetailDTOS.add(new OrderDetailsDTO(
+                    orderDetail.getoId(),
+                    orderDetail.getiCode(),
+                    orderDetail.getQty(),
+                    orderDetail.getPrice(),
+                    orderDetail.getTotal()
+            ));
+        }
+        return orderDetailDTOS;
+    }
+
 
     @Override
     public String generateNewOrderId(Connection connection) throws SQLException, ClassNotFoundException {

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import lk.ijse.pos.bo.SuperBO;
 import lk.ijse.pos.dto.CustomerDTO;
 import lk.ijse.pos.dto.ItemDTO;
+import lk.ijse.pos.dto.OrderDetailsDTO;
 import lk.ijse.pos.dto.OrdersDTO;
 
 import java.sql.Connection;
@@ -28,7 +29,9 @@ public interface OrderBO extends SuperBO {
 
     ObservableList<OrdersDTO> getAllOrders(Connection connection) throws SQLException, ClassNotFoundException;
 
-    OrdersDTO searchOrder(String orderId, Connection connection) throws SQLException, ClassNotFoundException;
+    ObservableList<OrderDetailsDTO> getAllOrderDetails(Connection connection) throws SQLException, ClassNotFoundException;
+
+    ArrayList<OrderDetailsDTO> searchOrderDetails(String orderId, Connection connection) throws SQLException, ClassNotFoundException;
 
     String generateNewOrderId(Connection connection)throws SQLException, ClassNotFoundException;
 
