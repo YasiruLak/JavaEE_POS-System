@@ -19,4 +19,6 @@ public interface OrderDAO extends CrudDAO<Orders, String, Connection> {
     boolean ifOrderExist(String oid, Connection connection) throws SQLException, ClassNotFoundException;
 
     String generateNewOrderId(Connection connection) throws SQLException, ClassNotFoundException;
+
+    int ordersCount(Connection connection) throws SQLException, ClassNotFoundException;
 }

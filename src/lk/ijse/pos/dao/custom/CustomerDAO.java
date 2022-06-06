@@ -4,6 +4,7 @@ import lk.ijse.pos.dao.CrudDAO;
 import lk.ijse.pos.entity.Customer;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * @author : Yasiru Dahanayaka
@@ -14,4 +15,6 @@ import java.sql.Connection;
  * @since : 0.1.0
  **/
 public interface CustomerDAO extends CrudDAO<Customer, String, Connection> {
+
+    int customerCount(Connection connection) throws SQLException, ClassNotFoundException;
 }

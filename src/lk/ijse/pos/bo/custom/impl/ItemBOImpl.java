@@ -81,4 +81,9 @@ public class ItemBOImpl implements ItemBO {
 
         return itemDAO.update(item, connection);
     }
+
+    @Override
+    public int countItem(Connection connection) throws SQLException, ClassNotFoundException {
+        return itemDAO.itemCount(connection);
+    }
 }

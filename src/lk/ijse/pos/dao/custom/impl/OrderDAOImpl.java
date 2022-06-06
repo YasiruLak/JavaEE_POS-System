@@ -80,4 +80,14 @@ public class OrderDAOImpl implements OrderDAO {
             return null;
         }
     }
+
+    @Override
+    public int ordersCount(Connection connection) throws SQLException, ClassNotFoundException {
+        int numberRow = 0;
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT COUNT(*) FROM orders");
+        while (resultSet.next()){
+            numberRow = resultSet.getInt(1);
+        }
+        return numberRow;
+    }
 }

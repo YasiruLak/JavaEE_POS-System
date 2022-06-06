@@ -181,5 +181,10 @@ public class OrderBOImpl implements OrderBO {
         return null;
     }
 
+    @Override
+    public int ordersCount(Connection connection) throws SQLException, ClassNotFoundException {
+        return orderDAO.ordersCount(connection);
+    }
+
 
 }

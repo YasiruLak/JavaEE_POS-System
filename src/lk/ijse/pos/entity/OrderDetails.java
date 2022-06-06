@@ -1,5 +1,6 @@
 package lk.ijse.pos.entity;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +28,10 @@ public class OrderDetails extends ArrayList<OrderDetails> {
         this.qty = qty;
         this.price = price;
         this.total = total;
+    }
+
+    public OrderDetails(String getoId, String getiCode, int getoQty, double price, double total, Connection connection) {
+
     }
 
     public String getoId() {

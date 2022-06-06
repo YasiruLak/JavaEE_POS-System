@@ -73,5 +73,10 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.update(customer,connection);
     }
 
+    @Override
+    public int countCustomer(Connection connection) throws SQLException, ClassNotFoundException {
+        return customerDAO.customerCount(connection);
+    }
+
 
 }

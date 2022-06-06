@@ -73,4 +73,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         return obList;
     }
+
+    @Override
+    public int customerCount(Connection connection) throws SQLException, ClassNotFoundException {
+        int numberRow = 0;
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT COUNT(*) FROM customer");
+        while (resultSet.next()){
+            numberRow = resultSet.getInt(1);
+        }
+        return numberRow;
+    }
 }

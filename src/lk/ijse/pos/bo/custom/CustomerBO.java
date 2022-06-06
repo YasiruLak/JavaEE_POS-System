@@ -27,5 +27,6 @@ public interface CustomerBO extends SuperBO {
 
     boolean updateCustomer(Connection connection, CustomerDTO customerDTO) throws SQLException, ClassNotFoundException;
 
+    int countCustomer(Connection connection) throws SQLException, ClassNotFoundException;
 
 }

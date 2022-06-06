@@ -87,6 +87,12 @@ public class CustomerServlet extends HttpServlet {
                 writer.print(response1.build());
 
                 break;
+
+            case "COUNT":
+
+                writer.print(customerBO.countCustomer(connection));
+
+                break;
         }
 
         connection.close();

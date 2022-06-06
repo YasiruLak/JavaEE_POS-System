@@ -80,4 +80,14 @@ public class ItemDAOImpl implements ItemDAO {
     public boolean updateQtyOnHand(Connection connection, String id, int qty) throws SQLException, ClassNotFoundException {
         return  CrudUtil.executeUpdate(connection, "UPDATE Item SET qtyOnHand=(qtyOnHand - "+ qty +")WHERE itemCode=?", id);
     }
+
+    @Override
+    public int itemCount(Connection connection) throws SQLException, ClassNotFoundException {
+        int numberRow = 0;
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT COUNT(*) FROM item");
+        while (resultSet.next()){
+            numberRow = resultSet.getInt(1);
+        }
+        return numberRow;
+    }
 }

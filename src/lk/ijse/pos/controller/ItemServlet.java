@@ -86,6 +86,12 @@ public class ItemServlet extends HttpServlet {
                     writer.print(response1.build());
 
                     break;
+
+                case "COUNT":
+
+                    writer.print(itemBO.countItem(connection));
+
+                    break;
             }
 
             connection.close();

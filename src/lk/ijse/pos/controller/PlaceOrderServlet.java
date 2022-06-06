@@ -104,6 +104,12 @@ public class PlaceOrderServlet extends HttpServlet {
                 writer.print(response.build());
 
                 break;
+
+            case "COUNT":
+
+                writer.print(orderBO.ordersCount(connection));
+
+                break;
         }
 
         connection.close();
